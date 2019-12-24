@@ -3,6 +3,8 @@
 class Bone :public GameObject
 {
 	bool isFinish;
+	DWORD Start;
+	DWORD Now;
 public:
 	
 	Bone(float x, float y);

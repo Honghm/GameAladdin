@@ -12,9 +12,9 @@
 
 class Katana : public Weapon
 {
-	int mState;
+	int mState; //1: Đứng đánh, 2: Ngồi đánh, 3: Nhảy đánh, 4: Chạy đánh
 public:
-	Katana();
+	Katana(float Vx, float Vy);
 	~Katana();
 
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);

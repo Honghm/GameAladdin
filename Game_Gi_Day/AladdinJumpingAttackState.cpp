@@ -8,10 +8,8 @@ AladdinJumpingAttackState::AladdinJumpingAttackState(AladdinData *aladdinData)
 	this->mAladdinData->player->sprite->SetTimeAnimation(150);
 	isJumpAttack = false;
 	this->mAladdinData->player->mWeapon.clear();
-	this->mAladdinData->player->mWeapon.push_back(new Katana());
+	this->mAladdinData->player->mWeapon.push_back(new Katana(this->mAladdinData->player->vx, 0.1));
 }
-
-
 
 AladdinJumpingAttackState::~AladdinJumpingAttackState()
 {

@@ -23,11 +23,13 @@ void Heart::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		this->sprite->SelectFrame(HEART_ANI_BEGIN);
 	}
 	this->sprite->Update(dt);
+	float l, t, r, b;
+	GetBoundingBox(l, t, r, b);
 }
 
 void Heart::Render(Camera * camera)
 {
-	if (isFinish)
+	if (isFinish || this->Health <= 0)
 		return;
 	//sprite->SelectFrame(0);
 	D3DXVECTOR2 pos = camera->Transform(x, y);
@@ -37,6 +39,8 @@ void Heart::Render(Camera * camera)
 
 void Heart::GetBoundingBox(float & l, float & t, float & r, float & b)
 {
+	if (isFinish || this->Health <= 0)
+		return;
 	l = x + 16;
 	t = y + 16;
 	r = x + width - 16;

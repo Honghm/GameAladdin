@@ -59,9 +59,9 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT> *listObject)
 
 void Item::Render(Camera * camera)
 {
-
+	if (isFinish == true)
+		return;
 	D3DXVECTOR2 pos = camera->Transform(x, y);
-
 	sprite->Draw(pos.x, pos.y);
 	//RenderBoundingBox(camera);
 }

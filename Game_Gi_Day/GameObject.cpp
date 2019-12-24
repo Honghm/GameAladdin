@@ -1,6 +1,5 @@
 ﻿#include "Game.h"
 #include "GameObject.h"
-//#include "Weapon.h"
 
 GameObject::GameObject()
 {
@@ -283,11 +282,12 @@ void GameObject::FilterCollision(vector<LPCOLLISIONEVENT>& coEvents, vector<LPCO
 
 bool GameObject::isCollitionObjectWithObject(GameObject * obj)	// kiểm tra bằng AABB và Sweept AABB
 {
+	LPCOLLISIONEVENT e = SweptAABBEx(obj, 0); // kt va chạm giữa 2 object bằng sweptAABB
+	bool res = e->t > 0 && e->t <= 1.0f; // ĐK va chạm
+
 	if (checkAABB(obj)) // kiểm tra va chạm bằng AABB trước
 		return true;
 
-	LPCOLLISIONEVENT e = SweptAABBEx(obj, 0); // kt va chạm giữa 2 object bằng sweptAABB
-	bool res = e->t > 0 && e->t <= 1.0f; // ĐK va chạm
 	SAFE_DELETE(e);
 	return res;
 }

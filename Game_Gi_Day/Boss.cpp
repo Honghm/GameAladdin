@@ -87,18 +87,15 @@ void Boss::Update(DWORD dt, float xAladdin, float yAladdin, int dAladdin, Player
 				CollisionWithAladdin(Aladdin);
 			}
 		}
-
 	}
-	for (auto obj : listEffect)
-	{
-		if (!dynamic_cast<Effect*>(obj)->IsFinish())
-			obj->Update(dt);
-	}
-	//Aladdin->Update(dt);
+	float l, t, r, b;
+	GetBoundingBox(l, t, r, b);
 }
 
 void Boss::Render(Camera * camera)
 {
+	if (this->Health <= 0)
+		return;
 	D3DXVECTOR2 pos = camera->Transform(x, y);
 	if (direction == 1)
 		sprite->Draw(pos.x, pos.y);
@@ -112,14 +109,12 @@ void Boss::Render(Camera * camera)
 	{
 		obj->Render(camera);
 	}
-	for (auto obj : listEffect)
-	{
-		obj->Render(camera);
-	}
 }
 
 void Boss::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
+	if (this->Health <= 0)
+		return;
 	if (state == 1)
 	{
 		left = x + 60;
@@ -196,7 +191,6 @@ void Boss::CollisionWithAladdin(Player * Aladdin)
 			burn->status = INACTIVE;
 			burn->GetBoundingBox(l, t, r, b);
 			Aladdin->SubHealth();
-
 		}
 		else
 			Aladdin->isCollisionWithBurn = false;

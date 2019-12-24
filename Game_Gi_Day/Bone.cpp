@@ -4,6 +4,7 @@
 
 Bone::Bone(float x, float y)
 {
+	Start = GetTickCount();
 	this->x = x;
 	this->y = y;
 	type = eType::BONE;
@@ -21,6 +22,10 @@ Bone::~Bone()
 
 void Bone::Update(DWORD dt)
 {
+	Now = GetTickCount();
+	DWORD time = Now - Start;
+	/*if (time > 30000)
+		isFinish = true;*/
 	if (isFinish == true)
 		return;
 	GameObject::Update(dt);
@@ -34,7 +39,7 @@ void Bone::Update(DWORD dt)
 	else
 	{
 		isFinish = true;
-		sprite->SelectFrame(StartFrame);
+		//sprite->SelectFrame(StartFrame);
 	}
 	//_RPT1(0, "Bone %d, %d\n", x, y);
 	x += dx;

@@ -8,7 +8,7 @@ AladdinAttackingState::AladdinAttackingState(AladdinData *aladdinData)
 	this->mAladdinData->player->SetVx(0);
 	this->mAladdinData->player->SetVy(0);
 	this->mAladdinData->player->mWeapon.clear();
-	this->mAladdinData->player->mWeapon.push_back(new Katana());
+	this->mAladdinData->player->mWeapon.push_back(new Katana(0,0));
 	AllowAtack = true;
 }
 

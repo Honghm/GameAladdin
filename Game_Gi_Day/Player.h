@@ -26,17 +26,14 @@ class Player:public GameObject
 	int apple;
 	int score;
 	int jewryrock;
+
 protected:
+
 	AladdinData *mAladdinData;
-	
 	void changeAnimation(AladdinState::StateName state);
 	AladdinState::StateName mCurrentState;
-	
-	//bool mCurrentReverse;
-	
-	
+
 public:
-	
 
 #pragma region Biến kiểm tra các trạng thái của nhân vật
 	bool isUp; 
@@ -92,11 +89,9 @@ public:
 	void OnKeyUp(int key);
 	//void SetReverse(bool flag); //Set lại animation
 	int flag = 0;
-	void CollisionWithBrick(const vector<LPGAMEOBJECT> *coObjects = NULL);
 	
 	void Stop();
 	void Attack(eType typeWeapon);
-
 	int GetHealth() { return this->Health; }
 	void SubHealth() { this->Health--; }
 	void AddHealth(int x) { this->Health = this->Health + x; }
@@ -111,13 +106,18 @@ public:
 	void SubApple() { this->apple--; }
 	virtual void GetBoundingBox(float & left, float & top, float & right, float & bottom);
 	virtual void GetBoundingBoxBrick(float & left, float & top, float & right, float & bottom);
+
+#pragma region Hàm set va chạm
 	void CollisionWithEnemyArea(const vector<LPGAMEOBJECT>* coObjects=NULL);
 	void CollisionWeaponWithObj(const vector<LPGAMEOBJECT>* coObjects);
 	bool CheckAABBActiveArea(float l, float t, float r, float b);
+	void CollisionWithBrick(const vector<LPGAMEOBJECT> *coObjects = NULL);
 	void CollisionWithPlatform(const vector<LPGAMEOBJECT>* coObjects);
 	void CollisionWithItems(vector<LPGAMEOBJECT>* coObject);
 	void CollisiongWithWall(vector<LPGAMEOBJECT>* coObject);
 	void CollisiongWithRope(vector<LPGAMEOBJECT>* coObject);
-	void ChangeState();
+#pragma endregion
+
+	
 };
 

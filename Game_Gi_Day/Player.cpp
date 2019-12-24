@@ -359,7 +359,6 @@ void Player::OnKeyPressed(int key)
 	}
 }
 
-//nhan giu
 void Player::OnKeyUp(int key)//tra ve su kien khi tha phim
 {
 	
@@ -430,13 +429,19 @@ void Player::Attack(eType typeWeapon)
 			SubApple();
 			isAttacking = true; // set trang thái tấn công
 			sprite->ResetTime();
-			mWeapon.back()->SetSpeed(0.2f * direction, 0);
+			mWeapon.back()->SetSpeed(0.25f * direction, 0);
 			if(mCurrentState==AladdinState::Throw)
 				mWeapon.back()->Attack(x, y, this->direction, 1);
 			else if (mCurrentState == AladdinState::SittingThrow)
 				mWeapon.back()->Attack(x, y, this->direction, 2);
-			else if(mCurrentState == AladdinState::JumpingThrow)
+			else if (mCurrentState == AladdinState::JumpingThrow)
+			{
+				if(this->vx==0)
+					mWeapon.back()->SetSpeed(0.25f * direction, 0);
+				else
+					mWeapon.back()->SetSpeed(0.4f * direction, 0);
 				mWeapon.back()->Attack(x, y, this->direction, 3);
+			}
 			mWeapon.back()->isAttacked = true;
 		}
 		break;
@@ -658,13 +663,30 @@ void Player::CollisionWithEnemyArea(const vector<LPGAMEOBJECT>* coObject)
 			listEnemy.push_back(coObject->at(i));
 	}
 
-	for (UINT i = 0; i < listEnemy.size(); i++)
+	CalcPotentialCollisions(&listEnemy, coEvents, flag);
+	if (coEvents.size() == 0)
 	{
-		LPGAMEOBJECT e = listEnemy.at(i);
-		if (checkAABB(e) && e->GetHealth() != 0)
+		for (UINT i = 0; i < listEnemy.size(); i++)
+		{
+			LPGAMEOBJECT e = listEnemy.at(i);
+			if (checkAABB(e) && e->GetHealth() != 0)
+			{
+				isCollisionWithEnemy = true;
+				vx = 0;
+				SubHealth();
+				this->SetState(new AladdinBeingAttackState(this->mAladdinData));
+			}
+		}
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			isCollisionWithEnemy = true;
-			vx = 0;
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			LPGAMEOBJECT enemy = e->obj;
 			SubHealth();
 			this->SetState(new AladdinBeingAttackState(this->mAladdinData));
 		}
@@ -765,10 +787,15 @@ void Player::CollisionWeaponWithObj(const vector<LPGAMEOBJECT> *coObjects) //xé
 						}
 						case eType::BOSS:
 						{
-							listEffect.push_back(new Effect(obj->GetX(), obj->GetY(), eType::BOSS, 2));
+							
 							int a = dynamic_cast<Boss*>(obj)->GetHealth();
 							if (weapon->GetType() == APPLE)
 							{
+								if(a<=0)
+									listEffect.push_back(new Effect(obj->GetX(), obj->GetY(), 0, 4));
+								else
+									listEffect.push_back(new Effect(obj->GetX(), obj->GetY(), eType::BOSS, 2));
+									
 								dynamic_cast<Boss*>(obj)->SetHealth(a - 1);
 								weapon->SetFinish(true);
 								if (a <= 10)
@@ -782,26 +809,17 @@ void Player::CollisionWeaponWithObj(const vector<LPGAMEOBJECT> *coObjects) //xé
 					}
 				}
 			}
+			
 			//Xét va chạm của quả táo với brick
-
 			for (UINT i = 0; i < coBricks.size(); i++)
 			{
 				if (weapon->GetType() == APPLE)
 				{
-					if (weapon->ableCollision(coBricks.at(i)) == true)
+					if (weapon->CollisionWithBrick(&coBricks) == true)
 					{
-						GameObject *objBrick = coBricks.at(i);
-						switch (objBrick->GetType())
-						{
-						case eType::BRICK:
-						{
-							listEffect.push_back(new Effect(objBrick->GetX(), objBrick->GetY() - 30, eType::BRICK, 1)); //hiệu ứng nổ
-							weapon->SetFinish(true);
-							break;
-						}
-						default:
-							break;
-						}
+						
+						listEffect.push_back(new Effect(weapon->x, weapon->y - 10, eType::BRICK, 1)); //hiệu ứng nổ
+						weapon->SetFinish(true);
 					}
 				}
 			}
@@ -814,11 +832,16 @@ void Player::CollisionWeaponWithObj(const vector<LPGAMEOBJECT> *coObjects) //xé
 					if (weapon->ableCollision(coItems.at(i)) == true)
 					{
 						GameObject *objItem = coItems.at(i);
+						if (dynamic_cast<Item*>(objItem)->GetFinish() == true||objItem->GetHealth()==0)
+							return;
 						dynamic_cast<Item*>(objItem)->SetFinish(true);
+						if(objItem->GetType()==eType::TAO)
+							AddApple();
 					}
 				}
 			}
 
+			//Xét va chạm của cục đá với tường
 			for (UINT i = 0; i < coPushs.size(); i++)
 			{
 				if (weapon->GetType() == KATANA)
@@ -979,14 +1002,20 @@ void Player::CollisionWithItems(vector<LPGAMEOBJECT>* coObject)
 				e->SubHealth(1);
 				if (e->GetType() == eType::TAO)
 					AddApple();
-				/*if (e->GetType() == eType::RESTARTPOINT)
+				else if (e->GetType() == eType::HEART)
 				{
-					e->GetPosition(rX, rY);
-					restartPoint.x = rX;
-					restartPoint.y = rY - 25;
-					idRestartPoint = e->GetID();
-				}*/
-
+					AddHealth(3);
+					if (GetHealth() >= 8)
+						SetHealth(8);
+				}
+				else if (e->GetType() == eType::GENIE)
+				{
+					AddScore(250);
+				}
+				else if (e->GetType() == eType::REDROCK)
+				{
+					AddJewryrock();
+				}
 			}
 		}
 	}
@@ -1135,17 +1164,6 @@ void Player::CollisiongWithRope(vector<LPGAMEOBJECT>* coObject)
 		}
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-}
-
-void Player::ChangeState()
-{
-	if (isCollisionWithBrick == true)
-	{
-		/*if(mCurrentState==AladdinState::Jumping)
-			this->SetState(new AladdinStandingState(this->mAladdinData));
-		else if(mCurrentState == AladdinState::JumpingForward)*/
-	}
-		
 }
 
 void Player::CollisionWithBrick(const vector<LPGAMEOBJECT>* coObject)

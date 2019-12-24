@@ -6,9 +6,10 @@
 #define APPLE_JUMP_GRAVITY 0.005f
 class Apple:public Weapon
 {
-	
+	vector<Effect*> listEffect;
 	int mState;
 public:
+	bool isCollisionWithBrick;
 	static Apple *Instance;
 	Apple();
 	virtual ~Apple();
@@ -18,5 +19,7 @@ public:
 	void UpdatePositionFitCharacter();
 	void Render(Camera *camera);
 	static Apple  *getInstance();
+	bool ableCollision(GameObject* obj);
+	bool CollisionWithBrick(vector<LPGAMEOBJECT> *coObjects);
 };
 

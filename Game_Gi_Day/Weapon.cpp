@@ -39,6 +39,11 @@ bool Weapon::ableCollision(GameObject* obj)//kiểm tra va chạm với các obj
 	return isCollitionObjectWithObject(obj);
 }
 
+bool Weapon::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
+{
+	return false;
+}
+
 void Weapon::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
 	left = x;

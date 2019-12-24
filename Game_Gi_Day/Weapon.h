@@ -31,6 +31,7 @@ public:
 	virtual void UpdatePositionFitCharacter();
 	virtual void RenderIcon(float X, float Y) = 0;
 	virtual bool ableCollision(GameObject* obj);
+	virtual bool CollisionWithBrick(vector<LPGAMEOBJECT> *coObjects);
 	bool GetFinish();
 	int GetStatus();
 	virtual void SetStatus(int s);

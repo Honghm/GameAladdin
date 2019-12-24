@@ -9,7 +9,7 @@ Apple::Apple()
 	sprite = new CSprite(texture, 200);
 	mState = 0;
 	isAttacked = false;
-	//vy = 0;
+	isCollisionWithBrick = false;
 }
 
 Apple::~Apple()
@@ -30,16 +30,12 @@ void Apple::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	
 	int StartFrame = 0; // ánh xạ chỉ số frame bằng level thay vì ifelse 
 	int EndFrame = 5;
-	if (StartFrame <= sprite->GetCurrentFrame() && sprite->GetCurrentFrame() < EndFrame)
-	{
-		sprite->Update(dt);
-	}
-	else
+	if (StartFrame < sprite->GetCurrentFrame() && sprite->GetCurrentFrame() >= EndFrame)
 	{
 		sprite->SelectFrame(StartFrame);
-		isFinish = true;
+		
 	}
-	
+	sprite->Update(dt);
 }
 
 void Apple::Attack(float X, float Y, int Direction, int st)
@@ -49,7 +45,6 @@ void Apple::Attack(float X, float Y, int Direction, int st)
 	UpdatePositionFitCharacter();
 	sprite->SelectFrame(0);
 	sprite->ResetTime();
-	
 }
 
 void Apple::RenderIcon(float X, float Y)
@@ -101,8 +96,6 @@ void Apple::UpdatePositionFitCharacter()
 
 void Apple::Render(Camera * camera)
 {
-	if (isFinish)
-		return;
 	D3DXVECTOR2 pos = camera->Transform(x, y);
 	if (direction == 1)
 		sprite->Draw(pos.x, pos.y);
@@ -115,4 +108,66 @@ Apple * Apple::getInstance()
 	if (Instance == NULL)
 		Instance = new Apple();
 	return Instance;
+}
+
+bool Apple::ableCollision(GameObject * obj)
+{
+	if (isFinish)
+		return false;
+	return Weapon::ableCollision(obj);
+
+}
+
+bool Apple::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
+{
+	vector<LPGAMEOBJECT> coBricks;
+	coBricks.clear();
+	for (UINT i = 0; i < coObjects->size(); i++)
+	{
+		if (dynamic_cast<Brick*>(coObjects->at(i)))
+		{
+			coBricks.push_back(coObjects->at(i));
+		}
+	}
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+	coEventsResult.clear();
+	CalcPotentialCollisions(&coBricks, coEvents, flag);
+	if (coEvents.size() == 0)
+	{
+		/*for (int i = 0; i < coBricks.size(); i++)
+		{
+			LPGAMEOBJECT e = coBricks.at(i);
+			if (checkAABB(e))
+			{
+				return true;
+			}
+		}
+		return false;*/
+	}
+	else 
+	{
+		float min_tx, min_ty, nx = 0, ny;
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (e->ny == -1)
+			{
+				isFinish = true;
+				vx = 0;
+				vy = 0;
+				return true;
+			}
+			else
+			{
+				x += dx;
+				y += dy;
+				return false;
+			}
+		}
+	}
+	
 }

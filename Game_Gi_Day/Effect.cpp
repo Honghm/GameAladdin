@@ -17,6 +17,9 @@ Effect::Effect(float X, float Y, int st, int state)
 	case 3:
 		type = eType::EFFECT_3;
 		break;
+	case 4:
+		type = eType::EFFECT_4;
+		break;
 	default:
 		break;
 	}
@@ -62,6 +65,13 @@ void Effect::Update(DWORD dt)
 		else
 			isFinish = false;
 	}
+	else if (state == 4)
+	{
+		if (sprite->GetCurrentFrame() >= 9)
+			isFinish = true;
+		else
+			isFinish = false;
+	}
 	sprite->Update(dt);
 
 }
@@ -97,6 +107,9 @@ void Effect::UpdatePositionFitCharacter(int st)
 	case eType::ALADDIN:
 		x += 25;
 		y += 50;
+		break;
+	case 0:
+		x += 40;
 		break;
 	}
 

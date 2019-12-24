@@ -12,7 +12,7 @@ Ghost::Ghost(int direction, float X, float Y, float BorderLeft, float BorderRigh
 	BackupX = x;
 	backupDirection = direction;
 	texture = TextureManager::GetInstance()->GetTexture(eType::GHOST);
-	sprite = new CSprite(texture, 100);
+	sprite = new CSprite(texture, 80);
 	isAttacking = false;
 	Health = 1; // sét máu
 	type = eType::GHOST;

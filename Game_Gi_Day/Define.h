@@ -122,6 +122,7 @@ enum eType
 	EFFECT_1 = 500,
 	EFFECT_2 = 501,
 	EFFECT_3 = 502,
+	EFFECT_4 = 503,
 };
 
 

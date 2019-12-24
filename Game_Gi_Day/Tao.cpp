@@ -17,12 +17,13 @@ Tao::Tao(float X, float Y, int W, int H, int st)
 
 void Tao::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	
+	float l, t, r, b;
+	GetBoundingBox(l, t, r, b);
 }
 
 void Tao::Render(Camera * camera)
 {
-	if (this->Health==0)
+	if (this->isFinish==true || this->Health==0)
 		return;
 	sprite->SelectFrame(0);
 	D3DXVECTOR2 pos = camera->Transform(x, y);
@@ -31,6 +32,8 @@ void Tao::Render(Camera * camera)
 
 void Tao::GetBoundingBox(float & l, float & t, float & r, float & b)
 {
+	if (this->isFinish == true || this->Health == 0)
+		return;
 	l = x + 16;
 	t = y + 16;
 	r = x + width - 16;

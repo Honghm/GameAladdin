@@ -16,6 +16,7 @@ Genie::Genie(float X, float Y, int W, int H, int st)
 
 void Genie::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+	
 	this->sprite->SetTimeAnimation(2000);
 	if (this->sprite->GetCurrentFrame() < GENIE_ANI_BEGIN || this->sprite->GetCurrentFrame() > GENIE_ANI_END)
 	{
@@ -23,11 +24,13 @@ void Genie::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		this->sprite->SelectFrame(GENIE_ANI_BEGIN);
 	}
 	this->sprite->Update(dt);
+	float l, t, r, b;
+	GetBoundingBox(l, t, r, b);
 }
 
 void Genie::Render(Camera * camera)
 {
-	if (isFinish)
+	if (isFinish||this->Health <= 0)
 		return;
 	//sprite->SelectFrame(0);
 	D3DXVECTOR2 pos = camera->Transform(x, y);
@@ -37,6 +40,8 @@ void Genie::Render(Camera * camera)
 
 void Genie::GetBoundingBox(float & l, float & t, float & r, float & b)
 {
+	if (isFinish || this->Health <= 0)
+		return;
 	l = x + 16;
 	t = y + 16;
 	r = x + width - 16;

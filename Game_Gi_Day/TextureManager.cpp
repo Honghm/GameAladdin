@@ -71,6 +71,7 @@ void TextureManager::LoadResource()
 	AddTexture(eType::EFFECT_1, new CTexture("Resources/Effect/Effect_1.png", 5, 1, 5));
 	AddTexture(eType::EFFECT_2, new CTexture("Resources/Effect/Effect_2.png", 15, 1, 15, 186, 254, 202));
 	AddTexture(eType::EFFECT_3, new CTexture("Resources/Effect/Effect_3.png", 3, 1, 3, 186, 254, 202));
+	AddTexture(eType::EFFECT_4, new CTexture("Resources/Effect/Effect_4.png", 10, 1, 10, 186, 254, 202));
 
 	//Boss
 //Boss

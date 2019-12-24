@@ -6,9 +6,8 @@ AladdinRunningAttackingState::AladdinRunningAttackingState(AladdinData *playerDa
 {
 	this->mAladdinData = playerData;
 	this->mAladdinData->player->AllowAttack = true;
-	//isRunAttack = false;
 	this->mAladdinData->player->mWeapon.clear();
-	this->mAladdinData->player->mWeapon.push_back(new Katana());
+	this->mAladdinData->player->mWeapon.push_back(new Katana(0.2,0));
 }
 
 
@@ -41,20 +40,32 @@ void AladdinRunningAttackingState::Update(float dt, vector<LPGAMEOBJECT>* coObje
 
 void AladdinRunningAttackingState::HandleKeyboard(std::map<int, bool> keys)
 {
-	if (this->mAladdinData->player->isAttacking == false)
-	{
-		this->mAladdinData->player->Attack(eType::KATANA);
-	}
+
 	if (keys[DIK_RIGHT])
 	{
 		this->mAladdinData->player->SetDirection(1);
 		this->mAladdinData->player->vx = ALADDIN_WALKING_SPEED;
+		if (this->mAladdinData->player->isAttacking == false)
+		{
+			this->mAladdinData->player->Attack(eType::KATANA);
+		}
 	}
 	else if (keys[DIK_LEFT])
 	{
 		this->mAladdinData->player->SetDirection(-1);
 		this->mAladdinData->player->vx = ALADDIN_WALKING_SPEED * -1;
+		if (this->mAladdinData->player->isAttacking == false)
+		{
+			this->mAladdinData->player->Attack(eType::KATANA);
+		}
 	}
+	else
+	{
+		this->mAladdinData->player->SetState(new AladdinStandingState(this->mAladdinData));
+		return;
+	}
+
+	
 }
 
 AladdinState::StateName AladdinRunningAttackingState::GetState()
