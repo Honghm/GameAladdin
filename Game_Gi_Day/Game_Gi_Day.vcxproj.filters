@@ -1,0 +1,676 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{90858336-1ba6-4689-9bdd-72ca23b0e7b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Textures">
+      <UniqueIdentifier>{c5fa6eb4-4b1d-4c78-8b33-4073219f1207}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Init">
+      <UniqueIdentifier>{ef86fc59-3151-45ef-bffd-a5e85468e4eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Define">
+      <UniqueIdentifier>{1f075969-00f8-4600-b1fa-4bcfd72d6ab8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Debug">
+      <UniqueIdentifier>{8bc6d0bb-4ff1-4b2f-b436-bd5e49b2d614}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Scenes">
+      <UniqueIdentifier>{19550fb5-d605-4c31-b043-1e9cb4f4518f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{abb1bdc7-7e6f-4b72-ad3a-99e2be1db586}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Camera">
+      <UniqueIdentifier>{a19ffb5d-79c7-460c-91ac-456c8b867210}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameTime">
+      <UniqueIdentifier>{306bc19d-4200-4f7b-83dc-aeab95d6477a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Grid">
+      <UniqueIdentifier>{20dfdedf-03bd-4866-bf82-1fcf8834e56a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Board">
+      <UniqueIdentifier>{2af19845-57db-4300-9bc6-d625003d6611}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Map">
+      <UniqueIdentifier>{a1fe069e-2eb7-4b70-9fa4-8ddf72fb9752}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Sound">
+      <UniqueIdentifier>{10413955-11a2-4eb7-960d-37569cc8b36f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Sprites">
+      <UniqueIdentifier>{f9d51cd9-f128-453c-bc33-9f113f1c4599}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Aladdin">
+      <UniqueIdentifier>{dbadbbab-337c-4f19-9f93-94c097d683d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Ground">
+      <UniqueIdentifier>{755aa97e-dbd9-4f9a-a114-2a157e80ff74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\Aladdin Header">
+      <UniqueIdentifier>{5dfd858f-0613-47a4-aabe-075c02520b0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\Aladdin Source">
+      <UniqueIdentifier>{3e936856-2763-4221-84c0-04617ecc117f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\JumpAttack">
+      <UniqueIdentifier>{ac05a547-6c79-48a5-a437-efb1feace819}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\RunStop">
+      <UniqueIdentifier>{0612ef14-3ffc-4581-8b99-5f46e0337510}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\Look">
+      <UniqueIdentifier>{dca9b13a-e471-4521-97cd-45d166c9a2be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\RunAttack">
+      <UniqueIdentifier>{12650d16-0b05-4bab-9227-6435962315aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\Climb">
+      <UniqueIdentifier>{3d1e3c51-a70f-46ad-86e8-267e6ebed230}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\Jump">
+      <UniqueIdentifier>{330583b4-98cc-4560-9399-48ae1127bc6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\Wait">
+      <UniqueIdentifier>{18f1cfae-2735-4a2a-9904-32982016dbc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\Run">
+      <UniqueIdentifier>{425826cc-1651-4ae9-984a-85bbba45d049}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\ClimbAttack">
+      <UniqueIdentifier>{777621ab-338e-4278-ac4e-79c6cdcdc2a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\JumpThrow">
+      <UniqueIdentifier>{bd50dafe-bc6d-4734-8c36-f41b31bc92f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\ClimbJump">
+      <UniqueIdentifier>{18b90fe6-2cfc-4cf0-b9cb-6aaec921f3c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\JumpForward">
+      <UniqueIdentifier>{d14b40ec-b5dc-47ff-9cf0-e0b636a26b85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\Push">
+      <UniqueIdentifier>{05845e76-7733-45af-be26-cd6ce5083382}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\Throw">
+      <UniqueIdentifier>{a763761b-33c3-4802-9152-73028d1e782f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\Sit">
+      <UniqueIdentifier>{b60befbb-4da4-4a66-a17c-ad57cec4d5d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\SitAttack">
+      <UniqueIdentifier>{98e4c8b7-54b9-4356-9a54-72ea94b1c57a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\SitThrow">
+      <UniqueIdentifier>{d2d47aa7-1ed1-49ba-8334-e15b213b9748}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\ClimbThrow">
+      <UniqueIdentifier>{58e49055-7c79-4bf5-aa16-46cf4e82282a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\Attack">
+      <UniqueIdentifier>{e2b65650-8e05-4c50-8127-137141c67bfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Item">
+      <UniqueIdentifier>{d05524c0-3ffe-4e92-88a5-35dc9952fe9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Item\Apple">
+      <UniqueIdentifier>{7f64009f-199e-40c6-9cae-023c66ce907b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Enemy">
+      <UniqueIdentifier>{28f0ccdc-5c87-45ed-8f48-658da0023588}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Effect">
+      <UniqueIdentifier>{cbb565ed-a04b-458a-94f5-fbbd22e916ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Platform">
+      <UniqueIdentifier>{6a6c670b-e146-4743-810d-2fff35252524}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Platform\Marble">
+      <UniqueIdentifier>{c89b2aac-04cb-4e69-877a-b3b6827d5735}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Platform\Rock">
+      <UniqueIdentifier>{a9010f67-3596-4169-8034-d6ae20a7f974}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Platform\Thorn">
+      <UniqueIdentifier>{bdc8dad6-9efd-4f41-9b21-39f7d2ee8e6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Weapon">
+      <UniqueIdentifier>{9c15d342-dffe-4384-b99a-d381474e43d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Weapon\Apple">
+      <UniqueIdentifier>{c5d694d4-8d76-4ba6-ac8f-72d2a8775a0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Weapon\Katana">
+      <UniqueIdentifier>{4dc155b6-2379-4cd1-9698-5267c3a486cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Enemy\Guard">
+      <UniqueIdentifier>{b7f2506e-63df-47e5-b648-5d55848b3ee7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Item\RedRock">
+      <UniqueIdentifier>{fecdfdcb-031f-4ebd-a97c-025e0752faaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Item\Genie">
+      <UniqueIdentifier>{6cef1387-fdbd-4137-ba89-d07972169776}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Item\Heart">
+      <UniqueIdentifier>{6a4341f6-55f6-4791-b82e-fd422d448ab0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Enemy\Soldier">
+      <UniqueIdentifier>{4f6fac80-a453-4988-b986-989ef96a7ca5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Enemy\Ghost">
+      <UniqueIdentifier>{a3e7a73c-e7a4-4d60-851c-2779370ade47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Enemy\Bat">
+      <UniqueIdentifier>{ddbb1145-957c-4822-b51f-471c8ae2fe71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\Fall">
+      <UniqueIdentifier>{c767be6a-3f3e-4e35-9772-6923dd644a63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aladdin\Hurt">
+      <UniqueIdentifier>{d63e8591-6220-4959-afb7-874f7e4ac2a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Weapon\Bone">
+      <UniqueIdentifier>{5afbcc8e-137b-422c-9235-4bbb041846d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Enemy\Boss">
+      <UniqueIdentifier>{8de57438-e0f7-4adc-a372-f6aee9a12da3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Weapon\Bullet">
+      <UniqueIdentifier>{26edb670-d97e-4cd3-b26c-9f3cee775b16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Board\HealthCol">
+      <UniqueIdentifier>{e866550a-9d43-4df3-989e-07f9884ed7d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Board\Life">
+      <UniqueIdentifier>{c36c576f-a5aa-4a5f-a8aa-9c906900ca02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Board\Font">
+      <UniqueIdentifier>{ba57f2c0-d96a-4627-b9a1-bbff0655bdec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Board\JewryRock">
+      <UniqueIdentifier>{6d5a89bc-9999-4684-b632-4ff717c5495e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Board\Apple">
+      <UniqueIdentifier>{5a87e9dd-ac7a-47de-9315-070a98798e72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Weapon\Burn">
+      <UniqueIdentifier>{2a8e4138-5ed8-4db9-ae18-8e09f8e7935f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Framework\Init</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>Framework\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Framework\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes.cpp">
+      <Filter>Framework\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTime.cpp">
+      <Filter>Framework\GameTime</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Framework\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Framework\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneGame.cpp">
+      <Filter>Framework\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Framework\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Define.cpp">
+      <Filter>Framework\Define</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Framework\Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Framework\Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Framework\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>GameObject\Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectHidden.cpp">
+      <Filter>GameObject\Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="Guard.cpp">
+      <Filter>GameObject\Enemy\Guard</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinDeadState.cpp">
+      <Filter>Aladdin\Aladdin Source</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinJumping2State.cpp">
+      <Filter>Aladdin\Aladdin Source</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinStandingAttackState.cpp">
+      <Filter>Aladdin\Aladdin Source</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinData.cpp">
+      <Filter>Aladdin</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Aladdin</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinState.cpp">
+      <Filter>Aladdin</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>GameObject\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Apple.cpp">
+      <Filter>GameObject\Weapon\Apple</Filter>
+    </ClCompile>
+    <ClCompile Include="Katana.cpp">
+      <Filter>GameObject\Weapon\Katana</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinClimbingState.cpp">
+      <Filter>Aladdin\Climb</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinJumpingState.cpp">
+      <Filter>Aladdin\Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinWaitting_1.cpp">
+      <Filter>Aladdin\Wait</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinAttackingState.cpp">
+      <Filter>Aladdin\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinRunningState.cpp">
+      <Filter>Aladdin\Run</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinStandingState.cpp">
+      <Filter>Aladdin\Wait</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinJumpingAttackState.cpp">
+      <Filter>Aladdin\JumpAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinRunning2State.cpp">
+      <Filter>Aladdin\RunStop</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinLookUpState.cpp">
+      <Filter>Aladdin\Look</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinRunningAttackingState.cpp">
+      <Filter>Aladdin\RunAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinJumpingThrowState.cpp">
+      <Filter>Aladdin\JumpThrow</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinJumpingClimbState.cpp">
+      <Filter>Aladdin\ClimbJump</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinJumpingForward.cpp">
+      <Filter>Aladdin\JumpForward</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinPushState.cpp">
+      <Filter>Aladdin\Push</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinThrowState.cpp">
+      <Filter>Aladdin\Throw</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinSittingThrowState.cpp">
+      <Filter>Aladdin\SitThrow</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinSittingAttackState.cpp">
+      <Filter>Aladdin\SitAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinSitting.cpp">
+      <Filter>Aladdin\Sit</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinClimbingThowingState.cpp">
+      <Filter>Aladdin\ClimbThrow</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinClimbingAttackingState.cpp">
+      <Filter>Aladdin\ClimbAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>GameObject\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Tao.cpp">
+      <Filter>GameObject\Item\Apple</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>GameObject\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>GameObject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Marble.cpp">
+      <Filter>GameObject\Platform\Marble</Filter>
+    </ClCompile>
+    <ClCompile Include="Rock.cpp">
+      <Filter>GameObject\Platform\Rock</Filter>
+    </ClCompile>
+    <ClCompile Include="Thorn.cpp">
+      <Filter>GameObject\Platform\Thorn</Filter>
+    </ClCompile>
+    <ClCompile Include="Genie.cpp">
+      <Filter>GameObject\Item\Genie</Filter>
+    </ClCompile>
+    <ClCompile Include="Heart.cpp">
+      <Filter>GameObject\Item\Heart</Filter>
+    </ClCompile>
+    <ClCompile Include="RedRock.cpp">
+      <Filter>GameObject\Item\RedRock</Filter>
+    </ClCompile>
+    <ClCompile Include="Soldier.cpp">
+      <Filter>GameObject\Enemy\Soldier</Filter>
+    </ClCompile>
+    <ClCompile Include="Ghost.cpp">
+      <Filter>GameObject\Enemy\Ghost</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinAttackCollision.cpp">
+      <Filter>Aladdin\Aladdin Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Bat.cpp">
+      <Filter>GameObject\Enemy\Bat</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinFallingState.cpp">
+      <Filter>Aladdin\Fall</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinBeingAttackState.cpp">
+      <Filter>Aladdin\Hurt</Filter>
+    </ClCompile>
+    <ClCompile Include="ColumnWall.cpp">
+      <Filter>GameObject\Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="Bone.cpp">
+      <Filter>GameObject\Weapon\Bone</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>GameObject\Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>GameObject\Weapon\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>Framework\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthCol.cpp">
+      <Filter>Framework\Board\HealthCol</Filter>
+    </ClCompile>
+    <ClCompile Include="Life.cpp">
+      <Filter>Framework\Board\Life</Filter>
+    </ClCompile>
+    <ClCompile Include="JewryRock.cpp">
+      <Filter>Framework\Board\JewryRock</Filter>
+    </ClCompile>
+    <ClCompile Include="AppleFont.cpp">
+      <Filter>Framework\Board\Apple</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Framework\Board\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="Burn.cpp">
+      <Filter>GameObject\Weapon\Burn</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h">
+      <Filter>Framework\Init</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>Framework\Define</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>Framework\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Framework\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes.h">
+      <Filter>Framework\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTime.h">
+      <Filter>Framework\GameTime</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Framework\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Framework\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGame.h">
+      <Filter>Framework\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Framework\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Framework\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Framework\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Framework\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>GameObject\Ground</Filter>
+    </ClInclude>
+    <ClInclude Include="Guard.h">
+      <Filter>GameObject\Enemy\Guard</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectHidden.h">
+      <Filter>GameObject\Ground</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinDeadState.h">
+      <Filter>Aladdin\Aladdin Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinJumping2State.h">
+      <Filter>Aladdin\Aladdin Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinStandingAttackState.h">
+      <Filter>Aladdin\Aladdin Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinState.h">
+      <Filter>Aladdin</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinData.h">
+      <Filter>Aladdin</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Aladdin</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>GameObject\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Apple.h">
+      <Filter>GameObject\Weapon\Apple</Filter>
+    </ClInclude>
+    <ClInclude Include="Katana.h">
+      <Filter>GameObject\Weapon\Katana</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinClimbingAttackingState.h">
+      <Filter>Aladdin\ClimbAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinWaitting_1.h">
+      <Filter>Aladdin\Wait</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinThrowState.h">
+      <Filter>Aladdin\Throw</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinStandingState.h">
+      <Filter>Aladdin\Wait</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinSittingThrowState.h">
+      <Filter>Aladdin\SitThrow</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinSitting.h">
+      <Filter>Aladdin\Sit</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinSittingAttackState.h">
+      <Filter>Aladdin\SitAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinRunningState.h">
+      <Filter>Aladdin\Run</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinRunningAttackingState.h">
+      <Filter>Aladdin\RunAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinRunning2State.h">
+      <Filter>Aladdin\RunStop</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinJumpingState.h">
+      <Filter>Aladdin\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinJumpingForward.h">
+      <Filter>Aladdin\JumpForward</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinJumpingThrowState.h">
+      <Filter>Aladdin\JumpThrow</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinLookUpState.h">
+      <Filter>Aladdin\Look</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinPushState.h">
+      <Filter>Aladdin\Push</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinClimbingState.h">
+      <Filter>Aladdin\Climb</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinClimbingThowingState.h">
+      <Filter>Aladdin\ClimbThrow</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinJumpingAttackState.h">
+      <Filter>Aladdin\JumpAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinJumpingClimbState.h">
+      <Filter>Aladdin\ClimbJump</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinAttackingState.h">
+      <Filter>Aladdin\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>GameObject\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Tao.h">
+      <Filter>GameObject\Item\Apple</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>GameObject\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>GameObject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Marble.h">
+      <Filter>GameObject\Platform\Marble</Filter>
+    </ClInclude>
+    <ClInclude Include="Rock.h">
+      <Filter>GameObject\Platform\Rock</Filter>
+    </ClInclude>
+    <ClInclude Include="Thorn.h">
+      <Filter>GameObject\Platform\Thorn</Filter>
+    </ClInclude>
+    <ClInclude Include="Genie.h">
+      <Filter>GameObject\Item\Genie</Filter>
+    </ClInclude>
+    <ClInclude Include="Heart.h">
+      <Filter>GameObject\Item\Heart</Filter>
+    </ClInclude>
+    <ClInclude Include="RedRock.h">
+      <Filter>GameObject\Item\RedRock</Filter>
+    </ClInclude>
+    <ClInclude Include="Soldier.h">
+      <Filter>GameObject\Enemy\Soldier</Filter>
+    </ClInclude>
+    <ClInclude Include="Ghost.h">
+      <Filter>GameObject\Enemy\Ghost</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinAttackCollision.h">
+      <Filter>Aladdin\Aladdin Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Bat.h">
+      <Filter>GameObject\Enemy\Bat</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinFallingState.h">
+      <Filter>Aladdin\Fall</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinBeingAttackState.h">
+      <Filter>Aladdin\Hurt</Filter>
+    </ClInclude>
+    <ClInclude Include="ColumnWall.h">
+      <Filter>GameObject\Ground</Filter>
+    </ClInclude>
+    <ClInclude Include="Bone.h">
+      <Filter>GameObject\Weapon\Bone</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>GameObject\Enemy\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>GameObject\Weapon\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Board.h">
+      <Filter>Framework\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthCol.h">
+      <Filter>Framework\Board\HealthCol</Filter>
+    </ClInclude>
+    <ClInclude Include="Life.h">
+      <Filter>Framework\Board\Life</Filter>
+    </ClInclude>
+    <ClInclude Include="JewryRock.h">
+      <Filter>Framework\Board\JewryRock</Filter>
+    </ClInclude>
+    <ClInclude Include="AppleFont.h">
+      <Filter>Framework\Board\Apple</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Framework\Board\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Burn.h">
+      <Filter>GameObject\Weapon\Burn</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Aladdin Genesis.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\TileMap1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
