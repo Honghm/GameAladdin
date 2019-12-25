@@ -1,9 +1,10 @@
 ﻿#include "AladdinClimbingAttackingState.h"
 #include "AladdinClimbingState.h"
-
+#include "Sound.h"
 
 AladdinClimbingAttackingState::AladdinClimbingAttackingState(AladdinData *aladdinData)
 {
+	Sound::GetInstance()->Play(eSound::sound_HighSword);
 	this->mAladdinData = aladdinData;
 	this->mAladdinData->player->SetVx(0);
 	this->mAladdinData->player->SetVy(0);

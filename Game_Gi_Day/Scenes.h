@@ -17,7 +17,7 @@ public:
 	virtual void LoadResources() = 0;
 	virtual void Update(DWORD dt) = 0;
 	virtual void Render() = 0;
-
+	virtual void SetaladinState(int x) = 0;
 
 	virtual ~Scene();
 

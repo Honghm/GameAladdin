@@ -28,6 +28,9 @@ public:
 	void Update(DWORD dt);
 	void Render();
 
+	void SetPlayerState(int x) {
+		_scene->SetaladinState(x);
+	}
 
 	Scene * GetScene();
 

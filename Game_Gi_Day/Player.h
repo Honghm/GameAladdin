@@ -24,9 +24,10 @@ class Player:public GameObject
 {
 	int life;
 	int apple;
-	int score;
+	int score, dem2 = 0;
 	int jewryrock;
-
+	D3DXVECTOR2 restartPoint = D3DXVECTOR2(113, 991);
+	bool isSetState;
 protected:
 
 	AladdinData *mAladdinData;
@@ -55,6 +56,7 @@ public:
 	bool isCollisionWithBurn;
 	bool isCollisionWithEnemy;
 	bool isDied;
+	bool isRestart;
 #pragma endregion
 
 	
@@ -68,6 +70,7 @@ public:
 	vector<Effect*> listEffect;
 	float B_top;
 	float B_bottom;
+	int timehurt = 0;
 public:
 	int dem = 0;
 	list<Weapon*> mWeapon;
@@ -106,7 +109,8 @@ public:
 	void SubApple() { this->apple--; }
 	virtual void GetBoundingBox(float & left, float & top, float & right, float & bottom);
 	virtual void GetBoundingBoxBrick(float & left, float & top, float & right, float & bottom);
-
+	D3DXVECTOR2 GetRestartPoint() { return this->restartPoint; }
+	bool GetIsRestart() { return this->isRestart; }
 #pragma region Hàm set va chạm
 	void CollisionWithEnemyArea(const vector<LPGAMEOBJECT>* coObjects=NULL);
 	void CollisionWeaponWithObj(const vector<LPGAMEOBJECT>* coObjects);

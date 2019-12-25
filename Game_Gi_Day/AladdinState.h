@@ -3,6 +3,7 @@
 #include <map>
 #include "Brick.h"
 #include "ObjectHidden.h"
+#include"Sound.h"
 
 /*PlayerState là 1 lớp trừu tượng dùng cho kế thừa, mỗi State là 1 class nên khi chuyển State ta chỉ việc chuyển con trỏ state trong class Player đến State mới*/
 class AladdinState

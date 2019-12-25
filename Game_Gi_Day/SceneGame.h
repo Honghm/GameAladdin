@@ -13,6 +13,7 @@
 #include "Grid.h"
 #include "Item.h"
 #include"Board.h"
+
 #define GAME_TIME_MAX 150
 
 
@@ -34,7 +35,7 @@ private:
 	std::map<int, bool> keys;
 	Player *player;
 	Board *board;
-
+	int AlaState;
 
 	int StateCurrent;
 	vector<LPGAMEOBJECT> listObj;
@@ -60,7 +61,7 @@ public:
 	void LoadResources();
 
 	void InitGame(eType map = MAP1); // khởi tạo lại như chơi từ đầu
-	void ResetResource(); // reset lai resource khi simon mất 1 mạng
+	void ResetResource();
 
 
 
@@ -71,12 +72,11 @@ public:
 
 	void LoadMap(eType);
 
+	void SetaladinState(int x) { AlaState = x; }
 
-
-	void CheckCollision(DWORD dt);
-	void CheckCollisonOfAladdin(DWORD dt);
+	
 	void CheckDropItem();
-	void CollisionWithItems(DWORD dt);
+
 
 	void ReplayMusicGame(int map);
 

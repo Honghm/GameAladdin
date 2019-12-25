@@ -66,6 +66,7 @@ Player::Player(Camera * camera)
 	isCollisionWithBullet = false;
 	isCollisionWithBurn = false;
 	isCollisionWithEnemy = false;
+	isRestart = false;
 	this->SetState(new AladdinFallingState(this->mAladdinData));	
 }
 
@@ -75,50 +76,71 @@ Player::~Player()
 
 void Player::Update(float dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	float l, r, t, b;
-	if (GetX() < camera->GetBoundaryLeft() - 10)
+	if (this->Health >= 0)
 	{
-		x = camera->GetBoundaryLeft() - 10;
-	}
-	if (GetX() > camera->GetBoundaryRight() + SCREEN_WIDTH - 400) //Set lại tọa độ khi aladdin vượt quá biên bên phải
-		x = (float)(camera->GetBoundaryRight() + SCREEN_WIDTH - 400);
-	
-	index = sprite->GetCurrentFrame();
-	GetBoundingBox(l, t, r, b); 
-
-	/*if (isCollisionWithBullet == true)
-		this->SetState(new AladdinStandingState(this->mAladdinData));
-	else if (isCollisionWithBurn == true)
-		this->SetState(new AladdinBeingAttackState(this->mAladdinData));*/
-	//ChangeState();
-	if (this->mAladdinData->state)
-	{
-		this->mAladdinData->state->Update(dt, coObjects);
-	}
-	if(mCurrentState != AladdinState::Lookup && mCurrentState != AladdinState::Sitting)
-		camera->SetPosition(x - SCREEN_WIDTH / 4 + 80, y + (SCREEN_HEIGHT / 4) - 150);
-	/*if (GetTickCount() - lastTimeHurted >= 2000)
-		isHurting = false;*/
-	CollisionWeaponWithObj(coObjects);
-	CollisionWithEnemyArea(coObjects);
-	CollisionWithItems(coObjects);
-	CollisionWithPlatform(coObjects);
-	CollisiongWithWall(coObjects);
-	CollisionWithBrick(coObjects);
-	CollisiongWithRope(coObjects);
-	for (auto obj : mWeapon)
-	{
-		if (obj->GetFinish() == false)
+		isRestart = isSetState = false;
+		dem2 = 0;
+		float l, r, t, b;
+		if (GetX() < camera->GetBoundaryLeft() - 10)
 		{
-			obj->Update(dt, coObjects);
+			x = camera->GetBoundaryLeft() - 10;
+		}
+		if (GetX() > camera->GetBoundaryRight() + SCREEN_WIDTH - 400) //Set lại tọa độ khi aladdin vượt quá biên bên phải
+			x = (float)(camera->GetBoundaryRight() + SCREEN_WIDTH - 400);
+
+		index = sprite->GetCurrentFrame();
+		GetBoundingBox(l, t, r, b);
+		if (this->mAladdinData->state)
+		{
+			this->mAladdinData->state->Update(dt, coObjects);
+		}
+		if (mCurrentState != AladdinState::Lookup && mCurrentState != AladdinState::Sitting)
+			camera->SetPosition(x - SCREEN_WIDTH / 4 + 80, y + (SCREEN_HEIGHT / 4) - 150);
+		
+		CollisionWeaponWithObj(coObjects);
+		if (timehurt == 0)
+		{
+			CollisionWithEnemyArea(coObjects);
+			CollisionWithPlatform(coObjects);
+		}
+		else
+			timehurt--;
+		CollisionWithItems(coObjects);
+
+		CollisiongWithWall(coObjects);
+		CollisionWithBrick(coObjects);
+		CollisiongWithRope(coObjects);
+		for (auto obj : mWeapon)
+		{
+			if (obj->GetFinish() == false)
+			{
+				obj->Update(dt, coObjects);
+			}
+		}
+		for (auto obj : listEffect)
+		{
+			if (!dynamic_cast<Effect*>(obj)->IsFinish())
+				obj->Update(dt);
 		}
 	}
-	for (auto obj : listEffect)
+	else
 	{
-		if (!dynamic_cast<Effect*>(obj)->IsFinish())
-			obj->Update(dt);
+		isRestart = true;
+		vy = 0;
+		SceneManager::GetInstance()->SetPlayerState(-1);
+		if (!isSetState)
+		{
+			this->SetState(new AladdinDeadState(this->mAladdinData));
+			isSetState = true;
+		}
+		dem2++;
+		if (dem2 >= 100) {
+			SceneManager::GetInstance()->SetPlayerState(1);
+			this->Health = 8;
+			this->life--;
+			this->SetState(new AladdinStandingState(this->mAladdinData));
+		}
 	}
-	
 }
 
 //set frame bắt đầu tương ứng từng animation
@@ -218,7 +240,7 @@ void Player::Render(Camera * camera)
 		if (obj->GetFinish() == false)
 			obj->Render(camera);
 	}
-	if(GetDirection()==1)
+	if(GetDirection() == 1)
 		sprite->Draw(pos.x, pos.y, alpha);
 	else
 		sprite->DrawFlipX(pos.x, pos.y, alpha);
@@ -687,6 +709,7 @@ void Player::CollisionWithEnemyArea(const vector<LPGAMEOBJECT>* coObject)
 				vx = 0;
 				SubHealth();
 				this->SetState(new AladdinBeingAttackState(this->mAladdinData));
+				timehurt = 30;
 			}
 		}
 	}
@@ -703,6 +726,7 @@ void Player::CollisionWithEnemyArea(const vector<LPGAMEOBJECT>* coObject)
 			LPGAMEOBJECT enemy = e->obj;
 			SubHealth();
 			this->SetState(new AladdinBeingAttackState(this->mAladdinData));
+			timehurt = 30;
 		}
 	}
 }
@@ -771,6 +795,7 @@ void Player::CollisionWeaponWithObj(const vector<LPGAMEOBJECT> *coObjects) //xé
 								dynamic_cast<Guard*>(obj)->sprite->SelectFrame(26);
 								weapon->SetFinish(true);
 								this->SetState(new AladdinAttackCollision(this->mAladdinData));
+								Sound::GetInstance()->Play(eSound::sound_GuardHit);
 								return;
 							}
 							else
@@ -778,7 +803,10 @@ void Player::CollisionWeaponWithObj(const vector<LPGAMEOBJECT> *coObjects) //xé
 								listEffect.push_back(new Effect(obj->GetX(), obj->GetY(), eType::GUARD, 1));
 								dynamic_cast<Guard*>(obj)->SetStatus(1);
 								if (weapon->GetType() == APPLE)
+								{
 									weapon->SetFinish(true);
+									Sound::GetInstance()->Play(eSound::sound_GuardPant);
+								}
 							}
 
 							break;
@@ -788,7 +816,10 @@ void Player::CollisionWeaponWithObj(const vector<LPGAMEOBJECT> *coObjects) //xé
 							listEffect.push_back(new Effect(obj->GetX(), obj->GetY(), eType::SOLDIER, 1));
 							dynamic_cast<Soldier*>(obj)->SetStatus(1);
 							if (weapon->GetType() == APPLE)
+							{
 								weapon->SetFinish(true);
+								Sound::GetInstance()->Play(eSound::sound_Iiee);
+							}
 							break;
 						}
 						case eType::BAT:
@@ -936,6 +967,7 @@ void Player::CollisionWithPlatform(const vector<LPGAMEOBJECT>* coObjects)
 					SubHealth();
 					y -= 0.5;
 					this->SetState(new AladdinBeingAttackState(this->mAladdinData));
+					timehurt = 30;
 				}
 			}
 		}
@@ -955,6 +987,7 @@ void Player::CollisionWithPlatform(const vector<LPGAMEOBJECT>* coObjects)
 					SubHealth();
 					y -= 0.5;
 					this->SetState(new AladdinBeingAttackState(this->mAladdinData));
+					timehurt = 30;
 				}
 			}
 		}
@@ -999,10 +1032,18 @@ void Player::CollisionWithItems(vector<LPGAMEOBJECT>* coObject)
 				else if (e->GetType() == eType::GENIE)
 				{
 					AddScore(250);
+					Sound::GetInstance()->Play(eSound::sound_Wow);
 				}
 				else if (e->GetType() == eType::REDROCK)
 				{
 					AddJewryrock();
+				}
+				else if (e->GetType() == eType::RESTARTPOINT)
+				{
+					e->GetPosition(rX, rY);
+					restartPoint.x = rX;
+					restartPoint.y = rY - 50;
+					Sound::GetInstance()->Play(eSound::sound_ContinuePoint);
 				}
 			}
 		}
@@ -1022,19 +1063,21 @@ void Player::CollisionWithItems(vector<LPGAMEOBJECT>* coObject)
 					SetHealth(8);
 			}
 			else if (item->GetType() == eType::GENIE)
+			{
 				AddScore(250);
+				Sound::GetInstance()->Play(eSound::sound_Wow);
+			}
 			else if (item->GetType() == eType::REDROCK)
 				AddJewryrock();
 			else if (item->GetType() == eType::TAO)
 				AddApple();
-			/*else if (item->GetType() == eType::RESTARTPOINT)
+			else if (item->GetType() == eType::RESTARTPOINT)
 			{
 				item->GetPosition(rX, rY);
 				restartPoint.x = rX;
-				restartPoint.y = rY - 25;
-				idRestartPoint = item->GetID();
+				restartPoint.y = rY - 50;
+				Sound::GetInstance()->Play(eSound::sound_ContinuePoint);
 			}
-*/
 			item->SubHealth(1);
 			item->Update(dt, coObject);
 

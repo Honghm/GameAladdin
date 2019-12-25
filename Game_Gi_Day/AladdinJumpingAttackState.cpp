@@ -1,9 +1,10 @@
 ﻿#include "AladdinJumpingAttackState.h"
 #include "AladdinStandingState.h"
 #include"AladdinFallingState.h"
-
+#include "Sound.h"
 AladdinJumpingAttackState::AladdinJumpingAttackState(AladdinData *aladdinData)
 {
+	Sound::GetInstance()->Play(eSound::sound_HighSword);
 	this->mAladdinData = aladdinData;
 	this->mAladdinData->player->sprite->SetTimeAnimation(150);
 	isJumpAttack = false;

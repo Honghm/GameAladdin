@@ -6,8 +6,10 @@
 #include "Ghost.h"
 #include "Bat.h"
 #include "Boss.h"
+#include "Sound.h"
 SceneGame::SceneGame()
 {
+	AlaState = 1;
 	LoadResources();
 
 }
@@ -36,6 +38,14 @@ void SceneGame::OnKeyDown(int KeyCode)
 		}
 		else
 			InitGame(eType::MAP1);
+	}
+	if (KeyCode == DIK_F)
+	{
+		this->player->SetHealth(-1);
+	}
+	if (KeyCode == DIK_H)
+	{
+		this->player->SetHealth(8);
 	}
 }
 
@@ -81,56 +91,69 @@ void SceneGame::ResetResource()
 
 void SceneGame::Update(DWORD dt)
 {
-	listObj.clear();
-	listUnit.clear(); // lay obj co trong vung camera thong qua unit
-	grid->GetListObject(listUnit, camera);
-	for (UINT i = 0; i < listUnit.size(); i++)
+	switch (AlaState)
 	{
-		LPGAMEOBJECT obj = listUnit[i]->GetObj();
-		
-		obj->Update(dt,&listObj);
-		listObj.push_back(obj);
-	}
-	
-	player->Update(dt,&listObj);
-	board->Update(dt, player->GetHealth(),player->GetLife(),player->GetApple(),player->GetJewryRock());
-	for (UINT i = 0; i < listObj.size(); i++)
-	{
-		LPGAMEOBJECT obj = listObj[i];
-		if (dynamic_cast<Guard*>(listObj[i]))
+	case 1:
+		Sound::GetInstance()->Play(eSound::sound_Story);
+		listObj.clear();
+		listUnit.clear(); // lay obj co trong vung camera thong qua unit
+		grid->GetListObject(listUnit, camera);
+		for (UINT i = 0; i < listUnit.size(); i++)
 		{
-			Guard *guard = dynamic_cast<Guard*>(listObj[i]);
-			guard->Update(dt, player);
-		}
-		else if (dynamic_cast<Soldier*>(listObj[i]))
-		{
-			Soldier *soldier = dynamic_cast<Soldier*>(listObj[i]);
-				soldier->Update(dt, player->GetX(), player->GetY(), player->GetDirection(), &listObj);
-		}
-		else if (dynamic_cast<Ghost*>(listObj[i]))
-		{
-			Ghost *ghost = dynamic_cast<Ghost*>(listObj[i]);
-			ghost->Update(dt, player->GetX(), player->GetY(), player->GetDirection(), player);
-		}
-		else if (dynamic_cast<Bat*>(listObj[i]))
-		{
-			Bat *bat = dynamic_cast<Bat*>(listObj[i]);
-			bat->Update(dt, player->GetX(), player->GetY(), player->GetDirection(), &listObj);
-		}
-		else if (dynamic_cast<Boss*>(listObj[i]))
-		{
-			Boss *boss = dynamic_cast<Boss*>(listObj[i]);
-			boss->Update(dt, player->GetX(), player->GetY(), player->GetDirection(), player);
-		}
-		else
-			obj->Update(dt, &listObj);
-	}
-	camera->Update(dt);
-	
-	gameTime->Update(dt);
+			LPGAMEOBJECT obj = listUnit[i]->GetObj();
 
-	UpdateGrid();
-	//CheckCollision(dt);
+			obj->Update(dt, &listObj);
+			listObj.push_back(obj);
+		}
+		if (player->GetIsRestart()) {
+			D3DXVECTOR2 p;
+			p = player->GetRestartPoint();
+			player->SetPosition(p.x, p.y);
+		}
+		player->Update(dt, &listObj);
+		board->Update(dt, player->GetHealth(), player->GetLife(), player->GetApple(), player->GetJewryRock());
+		for (UINT i = 0; i < listObj.size(); i++)
+		{
+			LPGAMEOBJECT obj = listObj[i];
+			if (dynamic_cast<Guard*>(listObj[i]))
+			{
+				Guard *guard = dynamic_cast<Guard*>(listObj[i]);
+				guard->Update(dt, player);
+			}
+			else if (dynamic_cast<Soldier*>(listObj[i]))
+			{
+				Soldier *soldier = dynamic_cast<Soldier*>(listObj[i]);
+				soldier->Update(dt, player->GetX(), player->GetY(), player->GetDirection(), &listObj);
+			}
+			else if (dynamic_cast<Ghost*>(listObj[i]))
+			{
+				Ghost *ghost = dynamic_cast<Ghost*>(listObj[i]);
+				ghost->Update(dt, player->GetX(), player->GetY(), player->GetDirection(), player);
+			}
+			else if (dynamic_cast<Bat*>(listObj[i]))
+			{
+				Bat *bat = dynamic_cast<Bat*>(listObj[i]);
+				bat->Update(dt, player->GetX(), player->GetY(), player->GetDirection(), &listObj);
+			}
+			else if (dynamic_cast<Boss*>(listObj[i]))
+			{
+				Boss *boss = dynamic_cast<Boss*>(listObj[i]);
+				boss->Update(dt, player->GetX(), player->GetY(), player->GetDirection(), player);
+			}
+			else
+				obj->Update(dt, &listObj);
+		}
+		camera->Update(dt);
+
+		gameTime->Update(dt);
+
+		UpdateGrid();
+		
+		break;
+	case -1://dealth
+		player->Update(dt, &listObj);
+		break;
+	}
 }
 
 void SceneGame::CheckDropItem()
@@ -157,25 +180,34 @@ void SceneGame::UpdateGrid()
 
 void SceneGame::Render()
 {
-	if (!isGameOver)
+	switch (AlaState)
 	{
-		TileMap->DrawMap(camera, 255, 255, 255);
-		for (int i = 0; i < listUnit.size(); i++)
+	case 1://normal
+		if (!isGameOver)
 		{
-			LPGAMEOBJECT obj = listUnit[i]->GetObj();
-			
+			TileMap->DrawMap(camera, 255, 255, 255);
+			for (int i = 0; i < listUnit.size(); i++)
+			{
+				LPGAMEOBJECT obj = listUnit[i]->GetObj();
+
 				obj->RenderBoundingBox(camera);
 				obj->Render(camera);
-			
+
+			}
+			player->Render(camera);
+			for (int i = 0; i < listUnit.size(); i++)
+			{
+				LPGAMEOBJECT obj = listUnit[i]->GetObj();
+				if (obj->GetType() == COLUMN1 || obj->GetType() == COLUMN2 || obj->GetType() == COLUMN3 || obj->GetType() == COLUMN4)
+					obj->Render(camera);
+			}
+			board->Render(player->GetApple(), player->GetJewryRock(), player->GetScore(), player->GetLife());
 		}
+		break;
+	case -1://dealth
 		player->Render(camera);
-		for (int i = 0; i < listUnit.size(); i++)
-		{
-			LPGAMEOBJECT obj = listUnit[i]->GetObj();
-			if(obj->GetType()==COLUMN1|| obj->GetType() == COLUMN2|| obj->GetType() == COLUMN3|| obj->GetType() == COLUMN4)
-				obj->Render(camera);
-		}
-		board->Render(player->GetApple(), player->GetJewryRock(), player->GetScore(), player->GetLife());
+		break;
+
 	}
 }
 
@@ -196,7 +228,7 @@ void SceneGame::LoadMap(eType x)
 		camera->SetBoundary(0.0f, (float)(TileMap->GetMapWidth() - camera->GetWidth() / 2 + 15), 0.0f, (float)(TileMap->GetMapHeight() - camera->GetHeight() / 2 + 38)); // set biên camera dựa vào kích thước map
 
 		camera->SetBoundaryBackup(camera->GetBoundaryLeft(), camera->GetBoundaryRight(), camera->GetBoundaryTop(), camera->GetBoundaryBottom()); // backup lại biên
-		player->SetPosition(0, 1000);
+		player->SetPosition(80, 1000);
 		camera->SetPosition(0, 1120);
 
 		camera->SetAllowFollowAladdin(true);
@@ -229,48 +261,8 @@ void SceneGame::LoadMap(eType x)
 
 	ResetResource();
 }
-//void SceneGame::CheckCollision(DWORD dt)
-//{
-//	CheckCollisonOfAladdin(dt); // kt vũ khí với enemy và aladdin với enemy
-//
-//}
-
-//void SceneGame::CheckCollisonOfAladdin(DWORD dt)
-//{
-//	player->CollisionWeaponWithObj(&listObj);
-//	player->CollisionWithEnemyArea(&listObj);
-//	player->CollisionWithItems(&listObj);
-//	player->CollisionWithPlatform(&listObj);
-//	player->CollisiongWithWall(&listObj);
-//	player->CollisionWithBrick(&listObj);
-//}
-
-//void SceneGame::CollisionWithItems(DWORD dt)
-//{
-//	for (UINT i = 0; i < listObj.size(); i++)
-//	{
-//		if (dynamic_cast<Item*> (listObj[i]))
-//		{
-//			if (!dynamic_cast<Item*>(listObj[i])->GetFinish() && dynamic_cast<Item*>(listObj[i])->isCollitionObjectWithObject(player))
-//			{
-//				dynamic_cast<Item*> (listObj[i])->SetFinish(true);
-//				/*switch (dynamic_cast<Item*>(listObj[i])->GetType())
-//				{
-//				case eType::TAO:
-//					dynamic_cast<Item*> (listObj[i])->SetFinish(true);
-//					break;
-//				default:
-//					break;
-//				}*/
-//				
-//			}
-//		}
-//	}
-//}
 
 void SceneGame::ReplayMusicGame(int map)
 {
-	
-
 }
 

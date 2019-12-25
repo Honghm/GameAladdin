@@ -1,9 +1,10 @@
 #include "AladdinRunningAttackingState.h"
 #include "AladdinData.h"
 #include "AladdinStandingState.h"
-
+#include "Sound.h"
 AladdinRunningAttackingState::AladdinRunningAttackingState(AladdinData *playerData)
 {
+	Sound::GetInstance()->Play(eSound::sound_HighSword);
 	this->mAladdinData = playerData;
 	this->mAladdinData->player->AllowAttack = true;
 	this->mAladdinData->player->mWeapon.clear();
