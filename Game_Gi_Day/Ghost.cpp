@@ -57,6 +57,7 @@ void Ghost::CollisionWithAladdin(Player * Aladdin)
 		if (bone->isCollitionObjectWithObject(Aladdin))
 		{
 			Aladdin->SubHealth();
+			bone->isFinish = true;
 		}
 	}
 }
@@ -65,18 +66,32 @@ void Ghost::Update(DWORD dt, float xAladdin, float yAladdin, int dAladdin, Playe
 	float l, t, r, b;
 	float dentaX = this->x - xAladdin;
 	float dentaY = this->y - yAladdin;
-	if (dentaX <= 80 && dentaX >= -80)
+	if (dentaX <= 100 && dentaX >= -100)
 	{
 		if (dentaY >= -80 && dentaY <= 80)
 		{
 			status = ACTIVE;
+			
 		}
-
 	}
 	else
+	{
+		for (auto obj : mBone)
+		{
+			if(obj->isFinish==false)
+				obj->isFinish = true;
+		}
 		status = INACTIVE;
+	}
 	if (status == INACTIVE)
+	{
+		for (auto obj : mBone)
+		{
+			obj->Update(dt);
+		}
 		return;
+	}
+	
 	if (this->Health <= 0)
 	{
 		status = INACTIVE;
@@ -93,7 +108,9 @@ void Ghost::Update(DWORD dt, float xAladdin, float yAladdin, int dAladdin, Playe
 			isFinish = true;
 			for (auto obj : mBone)
 			{
+				obj->isFinish = false;
 				obj->Update(dt);
+				CollisionWithAladdin(Aladdin);
 			}
 			status = INACTIVE;
 		}
@@ -103,8 +120,6 @@ void Ghost::Update(DWORD dt, float xAladdin, float yAladdin, int dAladdin, Playe
 
 void Ghost::Render(Camera * camera)
 {
-
-
 	if (isFinish == false)
 	{
 		if (this->status == INACTIVE)
@@ -119,14 +134,11 @@ void Ghost::Render(Camera * camera)
 	}
 	else
 	{
-
 		for (auto obj : mBone)
 		{
 			obj->Render(camera);
 		}
 	}
-
-
 }
 
 void Ghost::GetActiveBoundingBox(float &left, float &top, float &right, float &bottom, int id)

@@ -8,11 +8,13 @@
 #define KATANA_JUMPING_END 4
 #define KATANA_RUNNING_START 14
 #define KATANA_RUNNING_END 20
+#define KATANA_CLIMBING_START 14
+#define KATANA_CLIMBING_END 20
 #include "Weapon.h"
 
 class Katana : public Weapon
 {
-	int mState; //1: Đứng đánh, 2: Ngồi đánh, 3: Nhảy đánh, 4: Chạy đánh
+	int mState; //1: Đứng đánh, 2: Ngồi đánh, 3: Nhảy đánh, 4: Chạy đánh, 5: Leo đánh
 public:
 	Katana(float Vx, float Vy);
 	~Katana();

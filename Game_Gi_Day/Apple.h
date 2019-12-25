@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Weapon.h"
 
 
@@ -7,7 +7,7 @@
 class Apple:public Weapon
 {
 	vector<Effect*> listEffect;
-	int mState;
+	int mState; //1: Đứng ném, 2: Ngồi ném, 3: Nhảy ném, 4: Leo ném
 public:
 	bool isCollisionWithBrick;
 	static Apple *Instance;

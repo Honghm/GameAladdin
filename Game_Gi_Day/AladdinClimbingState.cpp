@@ -10,6 +10,7 @@ AladdinClimbingState::AladdinClimbingState(AladdinData *playerData)
 	this->mAladdinData->player->isLooking = false;
 	this->mAladdinData->player->isSitting = false;
 	isClimbing = true;
+	this->mAladdinData->player->isAttacking = false;
 }
 
 
@@ -27,6 +28,7 @@ void AladdinClimbingState::Update(float dt, vector<LPGAMEOBJECT>* coObjects)
 		this->mAladdinData->player->dy = this->mAladdinData->player->vy*dt;
 		this->mAladdinData->player->y += this->mAladdinData->player->dy;
 		this->mAladdinData->player->sprite->Update(dt);
+		//this->mAladdinData->player->isAttacking = false;
 	}
 	else
 	{
@@ -74,9 +76,9 @@ void AladdinClimbingState::HandleKeyboard(std::map<int, bool> keys)
 		this->mAladdinData->player->vy = 0;
 	}
 	if (keys[DIK_LEFT])
-		this->mAladdinData->player->SetDirection(-1);
+		this->mAladdinData->player->direction = -1;
 	if (keys[DIK_RIGHT])
-		this->mAladdinData->player->SetDirection(1);
+		this->mAladdinData->player->direction = 1;
 }
 
 AladdinState::StateName AladdinClimbingState::GetState()

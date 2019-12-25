@@ -6,6 +6,7 @@ AladdinJumpingClimbState::AladdinJumpingClimbState(AladdinData *aladdinData)
 {
 	this->mAladdinData = aladdinData;
 	this->mAladdinData->player->vy = -ALADDIN_VJUMP;
+	AllowMove = true;
 }
 
 
@@ -32,18 +33,22 @@ void AladdinJumpingClimbState::Update(float dt, vector<LPGAMEOBJECT>* coObjects)
 
 void AladdinJumpingClimbState::HandleKeyboard(std::map<int, bool> keys)
 {
-	if (keys[DIK_RIGHT])
+	if (AllowMove)
 	{
-		this->mAladdinData->player->SetDirection(1);
-		this->mAladdinData->player->SetSpeed(0.25, -0.05);
-		//allowMove = false;
+		if (keys[DIK_RIGHT])
+		{
+			this->mAladdinData->player->SetDirection(1);
+			this->mAladdinData->player->SetSpeed(0.25, -0.05);
+			AllowMove = false;
+		}
+		else if (keys[DIK_LEFT])
+		{
+			this->mAladdinData->player->SetDirection(-1);
+			this->mAladdinData->player->SetSpeed(-0.25, -0.05);
+			AllowMove = false;
+		}
 	}
-	else if (keys[DIK_LEFT])
-	{
-		this->mAladdinData->player->SetDirection(-1);
-		this->mAladdinData->player->SetSpeed(-0.25, -0.05);
-		//allowMove = false;
-	}
+	
 }
 AladdinState::StateName AladdinJumpingClimbState::GetState()
 {

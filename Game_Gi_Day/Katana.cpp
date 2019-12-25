@@ -24,6 +24,7 @@ void Katana::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	int EndFrame;
 	if (mState == 1) 
 	{
+		sprite->SetTimeAnimation(50);
 		isFinish = sprite->GetCurrentFrame() == KATANA_STANDING_END;
 		StartFrame = KATANA_STANDING_START;
 		EndFrame = KATANA_STANDING_END;
@@ -45,6 +46,12 @@ void Katana::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		isFinish = sprite->GetCurrentFrame() == KATANA_RUNNING_END;
 		StartFrame = KATANA_RUNNING_START;
 		EndFrame = KATANA_RUNNING_END;
+	}
+	else if (mState == 5)
+	{
+		isFinish = sprite->GetCurrentFrame() == KATANA_CLIMBING_END;
+		StartFrame = KATANA_CLIMBING_START;
+		EndFrame = KATANA_CLIMBING_END;
 	}
 	if (isAttacked == true)
 	{
@@ -68,6 +75,11 @@ void Katana::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			else if (mState == 4)
 			{
 				if (sprite->GetCurrentFrame() == 19|| sprite->GetCurrentFrame()==20)
+					SetStatus(ACTIVE);
+			}
+			else if (mState == 5)
+			{
+				if (sprite->GetCurrentFrame() == 19 || sprite->GetCurrentFrame() == 20)
 					SetStatus(ACTIVE);
 			}
 			else
@@ -129,10 +141,12 @@ void Katana::Attack(float X, float Y, int Direction, int st)
 		sprite->SelectFrame(KATANA_STANDING_START);
 	else if(st == 2)
 		sprite->SelectFrame(KATANA_SITTING_START);
-	else if(st == 3||st == 5)
+	else if(st == 3)
 		sprite->SelectFrame(KATANA_JUMPING_START);
 	else if(st==4)
 		sprite->SelectFrame(KATANA_RUNNING_START);
+	else if (st == 5)
+		sprite->SelectFrame(KATANA_CLIMBING_START);
 	UpdatePositionFitCharacter();
 	sprite->ResetTime();
 
@@ -141,7 +155,7 @@ void Katana::Attack(float X, float Y, int Direction, int st)
 bool Katana::ableCollision(GameObject * obj)
 {
 	if (sprite->GetCurrentFrame() == KATANA_STANDING_START|| sprite->GetCurrentFrame() == KATANA_SITTING_START
-		||sprite->GetCurrentFrame()==KATANA_JUMPING_START||sprite->GetCurrentFrame()==KATANA_RUNNING_START)
+		||sprite->GetCurrentFrame()==KATANA_JUMPING_START||sprite->GetCurrentFrame()==KATANA_RUNNING_START|| sprite->GetCurrentFrame() == KATANA_CLIMBING_START)
 		return false;
 	return Weapon::ableCollision(obj);
 }
@@ -188,6 +202,18 @@ void Katana::UpdatePositionFitCharacter()
 		break;
 	case 4: //chạy đánh
 		this->vx *= direction;
+		if (direction == -1)
+		{
+			this->x = x - 10;
+			this->y = y + 10;
+		}
+		else
+		{
+			this->x = x + 60;
+			this->y = y + 20;
+		}
+		break;
+	case 5: //leo đánh
 		if (direction == -1)
 		{
 			this->x = x - 10;

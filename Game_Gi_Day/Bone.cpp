@@ -24,8 +24,7 @@ void Bone::Update(DWORD dt)
 {
 	Now = GetTickCount();
 	DWORD time = Now - Start;
-	/*if (time > 30000)
-		isFinish = true;*/
+
 	if (isFinish == true)
 		return;
 	GameObject::Update(dt);
@@ -39,7 +38,6 @@ void Bone::Update(DWORD dt)
 	else
 	{
 		isFinish = true;
-		//sprite->SelectFrame(StartFrame);
 	}
 	//_RPT1(0, "Bone %d, %d\n", x, y);
 	x += dx;
@@ -49,9 +47,21 @@ void Bone::Update(DWORD dt)
 
 void Bone::Render(Camera * camera)
 {
-
 	if(isFinish == true)
 		return;
 	D3DXVECTOR2 pos = camera->Transform(x, y);
 	sprite->Draw(pos.x, pos.y);
+}
+
+void Bone::GetBoundingBox(float & left, float & top, float & right, float & bottom)
+{
+	if (isFinish == true)
+		return;
+	else
+	{
+		left = x;
+		right = left + this->GetWidth();
+		top = y;
+		bottom = top + this->GetHeight();
+	}
 }

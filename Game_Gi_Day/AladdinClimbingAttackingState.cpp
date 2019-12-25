@@ -7,7 +7,10 @@ AladdinClimbingAttackingState::AladdinClimbingAttackingState(AladdinData *aladdi
 	this->mAladdinData = aladdinData;
 	this->mAladdinData->player->SetVx(0);
 	this->mAladdinData->player->SetVy(0);
+	//isClimbAttack = false;
 	this->mAladdinData->player->sprite->SetTimeAnimation(100);
+	this->mAladdinData->player->mWeapon.clear();
+	this->mAladdinData->player->mWeapon.push_back(new Katana(0, 0));
 }
 
 
@@ -22,15 +25,18 @@ void AladdinClimbingAttackingState::Update(float dt, vector<LPGAMEOBJECT>* coObj
 		this->mAladdinData->player->sprite->Update(dt);//cập nhật frame mới
 	}
 	else
+	{
+		this->mAladdinData->player->isAttacking == false;
 		this->mAladdinData->player->SetState(new AladdinClimbingState(this->mAladdinData));
+	}
 }
 
 void AladdinClimbingAttackingState::HandleKeyboard(std::map<int, bool> keys)
 {
-	if (keys[DIK_LEFT])
-		this->mAladdinData->player->SetDirection(-1);
-	if (keys[DIK_RIGHT])
-		this->mAladdinData->player->SetDirection(1);
+	if (this->mAladdinData->player->isAttacking == false)
+	{
+		this->mAladdinData->player->Attack(eType::KATANA);
+	}
 }
 
 AladdinState::StateName AladdinClimbingAttackingState::GetState()

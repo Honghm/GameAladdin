@@ -21,7 +21,7 @@ AladdinAttackingState::~AladdinAttackingState()
 void AladdinAttackingState::Update(float dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	
-	this->mAladdinData->player->sprite->SetTimeAnimation(100);
+	this->mAladdinData->player->sprite->SetTimeAnimation(75);
 	if (AllowAtack == true)
 	{
 		if (this->mAladdinData->player->index < ALADDIN_ANI_ATTACKING_END)

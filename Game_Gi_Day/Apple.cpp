@@ -92,6 +92,19 @@ void Apple::UpdatePositionFitCharacter()
 			this->y = y + 20;
 		}
 	}
+	if (mState == 4)
+	{
+		if (direction == 1)
+		{
+			this->x = x + 30;
+			this->y = y + 30;
+		}
+		else
+		{
+			this->x = x + 40;
+			this->y = y + 30;
+		}
+	}
 }
 
 void Apple::Render(Camera * camera)
@@ -135,19 +148,7 @@ bool Apple::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 	coEvents.clear();
 	coEventsResult.clear();
 	CalcPotentialCollisions(&coBricks, coEvents, flag);
-	if (coEvents.size() == 0)
-	{
-		/*for (int i = 0; i < coBricks.size(); i++)
-		{
-			LPGAMEOBJECT e = coBricks.at(i);
-			if (checkAABB(e))
-			{
-				return true;
-			}
-		}
-		return false;*/
-	}
-	else 
+	if (coEvents.size() != 0)
 	{
 		float min_tx, min_ty, nx = 0, ny;
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);

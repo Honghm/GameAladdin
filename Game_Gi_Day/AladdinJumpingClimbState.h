@@ -4,7 +4,7 @@
 
 class AladdinJumpingClimbState :public AladdinState
 {
-
+	bool AllowMove;
 public:
 	AladdinJumpingClimbState(AladdinData *aladdinData);
 	~AladdinJumpingClimbState();
