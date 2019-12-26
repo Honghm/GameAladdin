@@ -24,8 +24,8 @@ void TextureManager::LoadResource()
 
 	//map
 	AddTexture(eType::MAP1, new CTexture("Resources/TileMap.png", 69, 35, 2411));
-	AddTexture(eType::MAP2, new CTexture("Resources/Boss/Map_Boss.png", 26, 11, 276));
-	AddTexture(eType::BACKGROUND, new CTexture("Resources/Boss/TileBackground.png", 564, 1, 564));
+	AddTexture(eType::MAP2, new CTexture("Resources/Boss/Map_Boss.png", 26, 11, 276,0,0,0));
+	AddTexture(eType::BACKGROUND, new CTexture("Resources/Boss/BackgroundBoss.png"));
 
 	AddTexture(eType::COLUMN1, new CTexture("Resources/Ground/column1.png"));
 	AddTexture(eType::COLUMN2, new CTexture("Resources/Ground/column2.png"));

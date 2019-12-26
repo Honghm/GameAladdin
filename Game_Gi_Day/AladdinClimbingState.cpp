@@ -11,6 +11,7 @@ AladdinClimbingState::AladdinClimbingState(AladdinData *playerData)
 	this->mAladdinData->player->isSitting = false;
 	isClimbing = true;
 	this->mAladdinData->player->isAttacking = false;
+	this->mAladdinData->player->vx = 0;
 }
 
 

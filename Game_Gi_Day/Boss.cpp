@@ -11,7 +11,7 @@ Boss::Boss(int direction, float X, float Y, int status)
 	texture = TextureManager::GetInstance()->GetTexture(eType::BOSS);
 	sprite = new CSprite(texture, 150);
 	type = eType::BOSS;
-	Health = 11;
+	Health = 15;
 	state = 1;
 	isSnake = false;
 }

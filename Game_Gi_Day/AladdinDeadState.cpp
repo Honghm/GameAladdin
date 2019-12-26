@@ -1,5 +1,5 @@
 ﻿#include "AladdinDeadState.h"
-
+#include "AladdinStandingState.h"
 
 
 AladdinDeadState::AladdinDeadState(AladdinData *aladdinData)
@@ -17,10 +17,14 @@ AladdinDeadState::~AladdinDeadState()
 
 void AladdinDeadState::Update(float dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (this->mAladdinData->player->index >= ALADDIN_ANI_DEAD_END)
+	this->mAladdinData->player->sprite->SetTimeAnimation(250);
+	if (this->mAladdinData->player->index <= ALADDIN_ANI_DEAD_END)
 	{
-		this->mAladdinData->player->sprite->SelectFrame(ALADDIN_ANI_DEAD_BEGIN);
-	}this->mAladdinData->player->sprite->Update(dt);//cập nhật frame mới
+		this->mAladdinData->player->sprite->Update(dt);//cập nhật frame mới
+	}
+	else
+		this->mAladdinData->player->SetState(new AladdinStandingState(this->mAladdinData));
+
 }
 
 void AladdinDeadState::HandleKeyboard(std::map<int, bool> keys)

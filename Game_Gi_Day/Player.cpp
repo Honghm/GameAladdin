@@ -105,11 +105,12 @@ void Player::Update(float dt, vector<LPGAMEOBJECT> *coObjects)
 		}
 		else
 			timehurt--;
+		CollisiongWithRope(coObjects);
+		CollisiongWithWall(coObjects);
 		CollisionWithItems(coObjects);
 		CollisionWeaponWithObj(coObjects);
-		CollisiongWithWall(coObjects);
 		CollisionWithBrick(coObjects);
-		CollisiongWithRope(coObjects);
+		
 		for (auto obj : mWeapon)
 		{
 			if (obj->GetFinish() == false)
@@ -139,6 +140,10 @@ void Player::Update(float dt, vector<LPGAMEOBJECT> *coObjects)
 			this->Health = 8;
 			this->life--;
 			this->SetState(new AladdinStandingState(this->mAladdinData));
+		}
+		if (this->mAladdinData->state)
+		{
+			this->mAladdinData->state->Update(dt, coObjects);
 		}
 	}
 }
@@ -516,7 +521,7 @@ void Player::GetBoundingBox(float & left, float & top, float & right, float & bo
 			right = x + ALADDIN_BBOX_WIDTH - 30;
 			bottom = y + ALADDIN_BBOX_HEIGHT - 20;
 		}
-		if (isClimbUp || isClimbing)
+		if (mCurrentState == AladdinState::Climbing || mCurrentState == AladdinState::ClimbingAttack || mCurrentState == AladdinState::ClimbingThow || mCurrentState == AladdinState::JumpingClimb)
 		{
 			left = x + 47.5;
 			top = y + 20;
@@ -570,7 +575,7 @@ void Player::GetBoundingBox(float & left, float & top, float & right, float & bo
 			right = x + ALADDIN_BBOX_WIDTH;
 			bottom = y + ALADDIN_BBOX_HEIGHT - 20;
 		}
-		if (isClimbUp|| isClimbing)
+		if (mCurrentState == AladdinState::Climbing || mCurrentState == AladdinState::ClimbingAttack || mCurrentState == AladdinState::ClimbingThow || mCurrentState == AladdinState::JumpingClimb)
 		{
 			left = x + 47.5;
 			top = y+20;
@@ -614,7 +619,7 @@ void Player::GetBoundingBoxBrick(float & left, float & top, float & right, float
 			right = x + ALADDIN_BBOX_WIDTH - 30;
 			bottom = y + ALADDIN_BBOX_HEIGHT - 20;
 		}
-		if (isClimbUp || isClimbing)
+		if (mCurrentState == AladdinState::Climbing || mCurrentState == AladdinState::ClimbingAttack || mCurrentState == AladdinState::ClimbingThow || mCurrentState == AladdinState::JumpingClimb)
 		{
 			left = x + 47.5;
 			top = y + 20;
@@ -668,7 +673,7 @@ void Player::GetBoundingBoxBrick(float & left, float & top, float & right, float
 			right = x + ALADDIN_BBOX_WIDTH;
 			bottom = y + ALADDIN_BBOX_HEIGHT - 20;
 		}
-		if (isClimbUp || isClimbing)
+		if (mCurrentState == AladdinState::Climbing || mCurrentState == AladdinState::ClimbingAttack || mCurrentState == AladdinState::ClimbingThow||mCurrentState == AladdinState::JumpingClimb)
 		{
 			left = x + 47.5;
 			top = y + 20;
@@ -1128,7 +1133,7 @@ void Player::CollisiongWithWall(vector<LPGAMEOBJECT>* coObjects)
 			GameObject *obj = listEnemy.at(i);
 			if (obj->isCollitionObjectWithObject(this))
 			{
-				if (mCurrentState == AladdinState::Running)
+				if (mCurrentState == AladdinState::Standing || mCurrentState == AladdinState::Running)
 				{
 					if (isPush == false)
 					{
@@ -1147,6 +1152,10 @@ void Player::CollisiongWithWall(vector<LPGAMEOBJECT>* coObjects)
 	{
 		float min_tx, min_ty, nx = 0, ny;
 
+		if (mCurrentState == AladdinState::Climbing || mCurrentState == AladdinState::ClimbingAttack || mCurrentState == AladdinState::ClimbingThow)
+			return;
+
+
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny); //lọc các obj có khả năng va chạm với aladdin
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
@@ -1161,13 +1170,14 @@ void Player::CollisiongWithWall(vector<LPGAMEOBJECT>* coObjects)
 					x -= 10 * this->direction;
 					this->SetState(new AladdinStandingState(this->mAladdinData));
 				}
-				else if (mCurrentState == AladdinState::Jumping || mCurrentState == AladdinState::JumpingForward)
+				else if (mCurrentState == AladdinState::Jumping || mCurrentState == AladdinState::JumpingForward ||mCurrentState==AladdinState::JumpingClimb)
 				{
 					vx = 0;
 					x -= 10 * this->direction;
 					this->SetState(new AladdinFallingState(this->mAladdinData));
 				}
-				else
+				
+				else if(mCurrentState == AladdinState::Standing||mCurrentState == AladdinState::Running)
 					this->SetState(new AladdinPushState(this->mAladdinData));
 			}
 			else
@@ -1202,29 +1212,31 @@ void Player::CollisiongWithRope(vector<LPGAMEOBJECT>* coObject)
 			list_Rope.push_back(coObject->at(i));
 		}
 	}
-	for (int i = 0; i < list_Rope.size(); i++)
-	{
-		LPGAMEOBJECT e = list_Rope.at(i);
-		B_top = e->bordertop;
-		B_bottom = e->borderbottom;
-		if (checkAABB(e))
-		{
-			if ((mCurrentState == AladdinState::Jumping || mCurrentState == AladdinState::JumpingForward))
-			{
-				//y = B_top;
-				vx = 0;
-				dx = 0;
-				x = e->x - 50;
-				this->SetState(new AladdinClimbingState(this->mAladdinData));
-			}
-			
-			
-		}
-	}
+	//for (int i = 0; i < list_Rope.size(); i++)
+	//{
+	//	LPGAMEOBJECT e = list_Rope.at(i);
+	//	B_top = e->bordertop;
+	//	B_bottom = e->borderbottom;
+	//	if (checkAABB(e))
+	//	{
+	//		if ((mCurrentState == AladdinState::Jumping || mCurrentState == AladdinState::JumpingForward))
+	//		{
+	//			//y = B_top;
+	//			vx = 0;
+	//			dx = 0;
+	//			x = e->x - 50;
+	//			this->SetState(new AladdinClimbingState(this->mAladdinData));
+	//		}
+	//		
+	//		
+	//	}
+	//}
 	CalcPotentialCollisions(&list_Rope, coEvents,flag);
 
 	if (coEvents.size() == 0)//co xay ra va cham
 	{
+		if (mCurrentState == AladdinState::Jumping)
+			float a = vy;
 		isClimbing = false;
 	}
 	else
@@ -1236,17 +1248,20 @@ void Player::CollisiongWithRope(vector<LPGAMEOBJECT>* coObject)
 			B_top = coEventsResult[i]->obj->bordertop;
 			B_bottom = coEventsResult[i]->obj->borderbottom;
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (e->ny == 1|| e->nx!=0)
-			{
-				
-				if ((mCurrentState == AladdinState::Jumping || mCurrentState == AladdinState::JumpingForward) && y < B_top)
-					y = B_top;
-				vx = 0;
-				dx = 0;
-				x = coEventsResult[i]->obj->x - 50;
-				this->SetState(new AladdinClimbingState(this->mAladdinData));
+			if (e->nx != 0||e->ny != 0)
+			{	
+					dy = 0;
+					dx = 0;	
+					if (mCurrentState == AladdinState::Jumping || mCurrentState == AladdinState::JumpingForward || mCurrentState == AladdinState::Running|| mCurrentState == AladdinState::Standing)
+					{
+						if (y < B_top)
+						{
+							y = B_top;
+						}
+						x = coEventsResult[i]->obj->x - 50;
+						this->SetState(new AladdinClimbingState(this->mAladdinData));
+					}
 			}
-			
 		}
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
@@ -1299,10 +1314,10 @@ void Player::CollisionWithBrick(const vector<LPGAMEOBJECT>* coObject)
 	}
 	else
 	{
-		float min_tx, min_ty, nx, ny;
+		float min_tx, min_ty, nx=0, ny;
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 		y += min_ty * dy + ny * 0.4f;
-		//if (nx != 0) vx = 0;
+		if (nx != 0) vx = 0;
 		//xet logic va cham voi brick
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
@@ -1344,7 +1359,7 @@ void Player::CollisionWithBrick(const vector<LPGAMEOBJECT>* coObject)
 				if (e->nx != 0)
 				{
 					x += dx;
-					y += dy;
+					//y += dy;
 				}
 				else
 				{
@@ -1365,8 +1380,6 @@ void Player::CollisionWithBrick(const vector<LPGAMEOBJECT>* coObject)
 					//x += dx;
 				}
 			}
-			else
-				y += dy;
 		}
 	}
 

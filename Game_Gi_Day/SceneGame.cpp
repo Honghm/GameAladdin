@@ -47,6 +47,8 @@ void SceneGame::OnKeyDown(int KeyCode)
 	{
 		this->player->SetHealth(8);
 	}
+	if (KeyCode == DIK_1)
+		this->player->SetPosition(1159, 326);
 }
 
 void SceneGame::OnKeyUp(int KeyCode)
@@ -185,6 +187,8 @@ void SceneGame::Render()
 	case 1://normal
 		if (!isGameOver)
 		{
+			if(mapCurrent==eType::MAP2)
+				OtherMap->Draw(0, -80);
 			TileMap->DrawMap(camera, 255, 255, 255);
 			for (int i = 0; i < listUnit.size(); i++)
 			{
@@ -238,6 +242,9 @@ void SceneGame::LoadMap(eType x)
 		break;
 	case eType::MAP2:
 	{
+		texture = TextureManager::GetInstance()->GetTexture(eType::BACKGROUND);
+		OtherMap = new CSprite(texture, 0);
+		
 		grid->SetFile("Resources/Boss/ObjectBoss.txt");
 
 		TileMap->LoadMap(eType::MAP2);
