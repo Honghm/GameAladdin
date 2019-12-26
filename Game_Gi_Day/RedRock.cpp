@@ -9,7 +9,7 @@ RedRock::RedRock(float X, float Y, int W, int H, int st)
 	this->y = Y;
 	this->width = W;
 	this->height = H;
-	sprite = new CSprite(texture, 0);
+	sprite = new CSprite(texture, 100);
 	this->type = eType::REDROCK;
 
 }

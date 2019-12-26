@@ -42,6 +42,8 @@ void Bone::Update(DWORD dt)
 	//_RPT1(0, "Bone %d, %d\n", x, y);
 	x += dx;
 	y += dy;
+	float l, t, r, b;
+	GetBoundingBox(l, t, r, b);
 	//_RPT1(0, "Bone updated %d, %d\n", x, y);
 }
 

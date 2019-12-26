@@ -49,8 +49,10 @@ void Guard::Update(DWORD dt, Player* Aladdin)
 		status = INACTIVE;
 	}
 	float detaX = this->x - Aladdin->x;
-	if (detaX > 100 || detaX < -100)
+	float detaY = this->y - Aladdin->y;
+	if ((detaX > 100 || detaX < -100) && (detaY > 80 || detaY < -80))
 	{
+		
 		isAttacking = false;
 		if (this->GetX() < borderLeft || this->GetX() > borderRight)
 		{

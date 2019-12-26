@@ -4,8 +4,9 @@
 
 AladdinBeingAttackState::AladdinBeingAttackState(AladdinData *aladdinData)
 {
+	Sound::GetInstance()->Play(eSound::sound_AladdinHurt);
 	this->mAladdinData = aladdinData;
-	
+	this->mAladdinData->player->isAttacking = false;
 	isHurting = true;
 }
 

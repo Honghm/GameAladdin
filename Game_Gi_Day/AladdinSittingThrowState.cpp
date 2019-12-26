@@ -11,6 +11,7 @@ AladdinSittingThrowState::AladdinSittingThrowState(AladdinData * aladdinData)
 	AllowThrow = true;
 	this->mAladdinData->player->mWeapon.clear();
 	this->mAladdinData->player->mWeapon.push_back(new Apple());
+	Sound::GetInstance()->Play(eSound::sound_ThrowApple);
 }
 
 AladdinSittingThrowState::~AladdinSittingThrowState()

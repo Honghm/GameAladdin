@@ -211,6 +211,9 @@
     <Filter Include="GameObject\Weapon\Burn">
       <UniqueIdentifier>{2a8e4138-5ed8-4db9-ae18-8e09f8e7935f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Item\Restartpoint">
+      <UniqueIdentifier>{8aea6262-8c64-4090-9367-12701c04e3a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -443,6 +446,9 @@
     </ClCompile>
     <ClCompile Include="Sound.cpp">
       <Filter>Framework\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="RestartPoint.cpp">
+      <Filter>GameObject\Item\Restartpoint</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -679,6 +685,9 @@
     </ClInclude>
     <ClInclude Include="Sound.h">
       <Filter>Framework\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="RestartPoint.h">
+      <Filter>GameObject\Item\Restartpoint</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

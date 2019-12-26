@@ -56,6 +56,8 @@ void TextureManager::LoadResource()
 	AddTexture(eType::HEART, new CTexture("Resources/Item/heart40x40.png", 3, 1, 3));
 	//RedRock
 	AddTexture(eType::REDROCK, new CTexture("Resources/Item/redrock40x40.png", 9, 1, 9));
+	//RestartPoint
+	AddTexture(eType::RESTARTPOINT, new CTexture("Resources/Item/restartpoint.png", 10, 1, 10));
 	//Number
 	AddTexture(eType::NUMBER, new CTexture("Resources/number10x10.png", 10, 1, 10, 106, 148, 189));
 	//ground

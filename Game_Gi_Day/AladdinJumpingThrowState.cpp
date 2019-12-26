@@ -1,13 +1,13 @@
 ﻿#include "AladdinJumpingThrowState.h"
 
 
-
 AladdinJumpingThrowState::AladdinJumpingThrowState(AladdinData *aladdinData)
 {
 	this->mAladdinData = aladdinData;
 	this->mAladdinData->player->mWeapon.clear();
 	this->mAladdinData->player->mWeapon.push_back(new Apple());
 	AllowThrow = true;
+	Sound::GetInstance()->Play(eSound::sound_ThrowApple);
 }
 
 

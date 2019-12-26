@@ -11,6 +11,7 @@ AladdinThrowState::AladdinThrowState(AladdinData *aladdinData)
 	this->mAladdinData->player->mWeapon.push_back(new Apple());
 	AllowThrow = true;
 	this->mAladdinData->player->sprite->SetTimeAnimation(160);
+	Sound::GetInstance()->Play(eSound::sound_ThrowApple);
 }
 
 

@@ -1,7 +1,7 @@
 ﻿#include "AladdinJumpingAttackState.h"
 #include "AladdinStandingState.h"
 #include"AladdinFallingState.h"
-#include "Sound.h"
+
 AladdinJumpingAttackState::AladdinJumpingAttackState(AladdinData *aladdinData)
 {
 	Sound::GetInstance()->Play(eSound::sound_HighSword);

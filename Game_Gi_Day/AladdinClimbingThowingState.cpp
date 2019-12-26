@@ -4,6 +4,7 @@
 
 AladdinClimbingThowingState::AladdinClimbingThowingState(AladdinData * aladdinData)
 {
+	Sound::GetInstance()->Play(eSound::sound_ThrowApple);
 	this->mAladdinData = aladdinData;
 	this->mAladdinData->player->SetVx(0);
 	this->mAladdinData->player->SetVy(0);

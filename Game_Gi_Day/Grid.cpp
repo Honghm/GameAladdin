@@ -16,7 +16,7 @@
 #include "Bat.h"
 #include "ColumnWall.h"
 #include "Boss.h"
-
+#include "RestartPoint.h"
 
 Unit::Unit(Grid * grid, LPGAMEOBJECT obj, float x, float y)
 {
@@ -133,7 +133,9 @@ GameObject * Grid::GetNewObject(int id, int direction, int type, float x, float 
 	case eType::HEART:
 		return new Heart(x, y, w, h, st);
 		break;
-
+	case eType::RESTARTPOINT:
+		return new RestartPoint(x, y, w, h, st);
+		break;
 		//Enemy
 	case eType::GUARD:
 		return new Guard(direction, x, y, bl, br, st);

@@ -195,6 +195,7 @@
     <ClCompile Include="ObjectHidden.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RedRock.cpp" />
+    <ClCompile Include="RestartPoint.cpp" />
     <ClCompile Include="Rock.cpp" />
     <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -275,6 +276,7 @@
     <ClInclude Include="RedRock.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="resource1.h" />
+    <ClInclude Include="RestartPoint.h" />
     <ClInclude Include="Rock.h" />
     <ClInclude Include="SceneGame.h" />
     <ClInclude Include="SceneManager.h" />

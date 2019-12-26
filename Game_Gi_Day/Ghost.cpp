@@ -3,6 +3,7 @@
 #include "Bone.h"
 Ghost::Ghost(int direction, float X, float Y, float BorderLeft, float BorderRight, int status)
 {
+	
 	x = X;
 	y = Y;
 	this->direction = direction;
@@ -40,10 +41,7 @@ void Ghost::SetStatus(int s)
 	case DEATH:
 		break;
 	case INACTIVE:
-		x = BackupX;
-		direction = backupDirection;
-		vx = GHOST_SPEED_X * direction;
-		//Health = 1;
+		
 		break;
 	default:
 		break;
@@ -56,7 +54,7 @@ void Ghost::CollisionWithAladdin(Player * Aladdin)
 	{
 		if (bone->isCollitionObjectWithObject(Aladdin))
 		{
-			Aladdin->SubHealth();
+			//Aladdin->SubHealth();
 			bone->isFinish = true;
 		}
 	}
@@ -71,7 +69,6 @@ void Ghost::Update(DWORD dt, float xAladdin, float yAladdin, int dAladdin, Playe
 		if (dentaY >= -80 && dentaY <= 80)
 		{
 			status = ACTIVE;
-			
 		}
 	}
 	else
@@ -104,7 +101,8 @@ void Ghost::Update(DWORD dt, float xAladdin, float yAladdin, int dAladdin, Playe
 		}
 		else
 		{
-
+			if(isFinish==false)
+				Sound::GetInstance()->Play(eSound::sound_Skeleton);
 			isFinish = true;
 			for (auto obj : mBone)
 			{

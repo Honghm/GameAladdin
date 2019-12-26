@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "debug.h"
-
+#include "Sound.h"
 #include <cstdlib>
 #include <ctime>
 
