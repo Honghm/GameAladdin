@@ -9,14 +9,14 @@ RedRock::RedRock(float X, float Y, int W, int H, int st)
 	this->y = Y;
 	this->width = W;
 	this->height = H;
-	sprite = new CSprite(texture, 100);
+	sprite = new CSprite(texture, 500);
 	this->type = eType::REDROCK;
 
 }
 
 void RedRock::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	this->sprite->SetTimeAnimation(2000);
+	//this->sprite->SetTimeAnimation(1000);
 	if (this->sprite->GetCurrentFrame() <REDROCK_ANI_BEGIN || this->sprite->GetCurrentFrame() > REDROCK_ANI_END)
 	{
 
@@ -43,8 +43,8 @@ void RedRock::GetBoundingBox(float & l, float & t, float & r, float & b)
 		return;
 	l = x + 16;
 	t = y + 16;
-	r = x + width - 16;
-	b = y + height - 16;
+	r =l + 20;
+	b =t + 20;
 }
 
 

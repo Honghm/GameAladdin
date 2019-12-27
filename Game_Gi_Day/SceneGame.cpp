@@ -49,6 +49,12 @@ void SceneGame::OnKeyDown(int KeyCode)
 	}
 	if (KeyCode == DIK_1)
 		this->player->SetPosition(1159, 326);
+	if (KeyCode == DIK_2)
+		this->player->SetPosition(466, 663);
+	if (KeyCode == DIK_3)
+		this->player->SetPosition(725, 213);
+	if (KeyCode == DIK_4)
+		this->player->SetPosition(1654, 213);
 }
 
 void SceneGame::OnKeyUp(int KeyCode)

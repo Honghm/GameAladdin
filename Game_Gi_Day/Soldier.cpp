@@ -65,6 +65,8 @@ void Soldier::Update(DWORD dt, float xAladdin, float yAladdin, int dAladdin, vec
 		}
 		else
 		{
+			if (this->sprite->GetCurrentFrame() == SOLDIER_ANI_RUNNING_END)
+				return;
 			this->sprite->SelectFrame(SOLDIER_ANI_RUNNING_END);
 			vx = 0;
 		}
