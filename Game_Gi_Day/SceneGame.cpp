@@ -55,6 +55,8 @@ void SceneGame::OnKeyDown(int KeyCode)
 		this->player->SetPosition(725, 213);
 	if (KeyCode == DIK_4)
 		this->player->SetPosition(1654, 213);
+	if (KeyCode == DIK_5)
+		this->player->SetPosition(2110, 50);
 }
 
 void SceneGame::OnKeyUp(int KeyCode)
@@ -99,10 +101,31 @@ void SceneGame::ResetResource()
 
 void SceneGame::Update(DWORD dt)
 {
+	if (player->isContinue == true)
+	{
+		Sound::GetInstance()->Stop(eSound::sound_Story);
+		Sound::GetInstance()->Play(eSound::sound_LevelComplete);
+		dem++;
+		if (dem > 200)
+		{
+			player->isContinue = false;
+			InitGame(eType::MAP2);
+		}
+		
+	}
+	if (StateCurrent == 1)
+	{
+		Sound::GetInstance()->Stop(eSound::sound_BossTune);
+		Sound::GetInstance()->Play(eSound::sound_Story);
+	}
+	else if (StateCurrent == 2)
+	{
+		Sound::GetInstance()->Stop(eSound::sound_Story);
+		Sound::GetInstance()->Play(eSound::sound_BossTune);
+	}
 	switch (AlaState)
 	{
 	case 1:
-		Sound::GetInstance()->Play(eSound::sound_Story);
 		listObj.clear();
 		listUnit.clear(); // lay obj co trong vung camera thong qua unit
 		grid->GetListObject(listUnit, camera);
@@ -208,7 +231,7 @@ void SceneGame::Render()
 			for (int i = 0; i < listUnit.size(); i++)
 			{
 				LPGAMEOBJECT obj = listUnit[i]->GetObj();
-				if (obj->GetType() == COLUMN1 || obj->GetType() == COLUMN2 || obj->GetType() == COLUMN3 || obj->GetType() == COLUMN4)
+				if (obj->GetType() == COLUMN1 || obj->GetType() == COLUMN2 || obj->GetType() == COLUMN3 || obj->GetType() == COLUMN4 || obj->GetType() == CONTINUE)
 					obj->Render(camera);
 			}
 			board->Render(player->GetApple(), player->GetJewryRock(), player->GetScore(), player->GetLife());

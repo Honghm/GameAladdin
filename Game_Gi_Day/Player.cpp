@@ -67,6 +67,7 @@ Player::Player(Camera * camera)
 	isCollisionWithBurn = false;
 	isCollisionWithEnemy = false;
 	isRestart = false;
+	isContinue = false;
 	this->SetState(new AladdinFallingState(this->mAladdinData));	
 }
 
@@ -1000,7 +1001,7 @@ void Player::CollisionWithItems(vector<LPGAMEOBJECT>* coObject)
 	listItems.clear();
 	for (int i = 0; i < coObject->size(); i++)
 		if (coObject->at(i)->GetType() == eType::TAO || coObject->at(i)->GetType() == eType::REDROCK || coObject->at(i)->GetType() == eType::GENIE ||
-			coObject->at(i)->GetType() == eType::HEART || coObject->at(i)->GetType() == eType::RESTARTPOINT)
+			coObject->at(i)->GetType() == eType::HEART || coObject->at(i)->GetType() == eType::RESTARTPOINT|| coObject->at(i)->GetType() == eType::CONTINUE)
 			if (coObject->at(i)->GetHealth() != 0)
 				listItems.push_back(coObject->at(i));
 
@@ -1021,7 +1022,10 @@ void Player::CollisionWithItems(vector<LPGAMEOBJECT>* coObject)
 			{
 				e->SubHealth(1);
 				if (e->GetType() == eType::TAO)
+				{
+					Sound::GetInstance()->Play(eSound::sound_GemCollect);
 					AddApple();
+				}
 				else if (e->GetType() == eType::HEART)
 				{
 					AddHealth(3);
@@ -1035,6 +1039,7 @@ void Player::CollisionWithItems(vector<LPGAMEOBJECT>* coObject)
 				}
 				else if (e->GetType() == eType::REDROCK)
 				{
+					Sound::GetInstance()->Play(eSound::sound_GemCollect);
 					e->SubHealth(1);
 					AddJewryrock();
 				}
@@ -1044,6 +1049,10 @@ void Player::CollisionWithItems(vector<LPGAMEOBJECT>* coObject)
 					restartPoint.x = rX - 20;
 					restartPoint.y = rY - 50;
 					Sound::GetInstance()->Play(eSound::sound_ContinuePoint);
+				}
+				else if (e->GetType() == eType::CONTINUE)
+				{
+					isContinue = true;
 				}
 			}
 		}
@@ -1069,15 +1078,26 @@ void Player::CollisionWithItems(vector<LPGAMEOBJECT>* coObject)
 				Sound::GetInstance()->Play(eSound::sound_Wow);
 			}
 			else if (item->GetType() == eType::REDROCK)
+			{
 				AddJewryrock();
+				Sound::GetInstance()->Play(eSound::sound_GemCollect);
+			}
 			else if (item->GetType() == eType::TAO)
+			{
 				AddApple();
+				Sound::GetInstance()->Play(eSound::sound_GemCollect);
+			}
 			else if (item->GetType() == eType::RESTARTPOINT)
 			{
 				item->GetPosition(rX, rY);
 				restartPoint.x = rX;
 				restartPoint.y = rY - 50;
 				Sound::GetInstance()->Play(eSound::sound_ContinuePoint);
+			}
+			else if (item->GetType() == eType::CONTINUE)
+			{
+				Sound::GetInstance()->Play(eSound::sound_LevelComplete);
+				isContinue = true;
 			}
 			item->SubHealth(1);
 			item->Update(dt, coObject);
@@ -1324,10 +1344,12 @@ void Player::CollisionWithBrick(const vector<LPGAMEOBJECT>* coObject)
 				{
 					isCollisionWithBrick = true;
 					if (mCurrentState == AladdinState::Jumping || mCurrentState == AladdinState::Falling || mCurrentState == AladdinState::JumpingForward
-						|| mCurrentState == AladdinState::JumpingAttack || mCurrentState == AladdinState::JumpingThrow)
+						|| mCurrentState == AladdinState::JumpingAttack || mCurrentState == AladdinState::JumpingThrow|| mCurrentState == AladdinState::JumpingClimb)
 					{
 						this->SetState(new AladdinStandingState(this->mAladdinData));
 					}
+					//if(mCurrentState == AladdinState::JumpingClimb)
+
 				}
 				else// Nhay duoi len
 				{

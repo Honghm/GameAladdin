@@ -169,6 +169,7 @@
     <ClCompile Include="Burn.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ColumnWall.cpp" />
+    <ClCompile Include="Continue.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Define.cpp" />
     <ClCompile Include="DSutil.cpp" />
@@ -249,6 +250,7 @@
     <ClInclude Include="Burn.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ColumnWall.h" />
+    <ClInclude Include="Continue.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="DSutil.h" />

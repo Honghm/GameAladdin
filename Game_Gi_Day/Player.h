@@ -57,9 +57,10 @@ public:
 	bool isCollisionWithEnemy;
 	bool isDied;
 	bool isRestart;
+	
 #pragma endregion
 
-	
+	bool isContinue;
 	bool isGetNewStage;
 	DWORD timeWait;
 	int index;

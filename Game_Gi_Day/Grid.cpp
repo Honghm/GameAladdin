@@ -17,6 +17,7 @@
 #include "ColumnWall.h"
 #include "Boss.h"
 #include "RestartPoint.h"
+#include "Continue.h"
 
 Unit::Unit(Grid * grid, LPGAMEOBJECT obj, float x, float y)
 {
@@ -108,6 +109,9 @@ GameObject * Grid::GetNewObject(int id, int direction, int type, float x, float 
 	case eType::COLUMN3:
 	case eType::COLUMN4:
 		return new ColumnWall(x, y, w, h, st);
+		break;
+	case eType::CONTINUE:
+		return new Continue(x, y, w, h, st);
 		break;
 		//Platform
 	case eType::ROCK:

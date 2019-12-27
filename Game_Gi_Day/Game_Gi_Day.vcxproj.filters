@@ -214,6 +214,9 @@
     <Filter Include="GameObject\Item\Restartpoint">
       <UniqueIdentifier>{8aea6262-8c64-4090-9367-12701c04e3a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Item\Continue">
+      <UniqueIdentifier>{6b64523b-fc0d-442e-b145-04f243006036}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -449,6 +452,9 @@
     </ClCompile>
     <ClCompile Include="RestartPoint.cpp">
       <Filter>GameObject\Item\Restartpoint</Filter>
+    </ClCompile>
+    <ClCompile Include="Continue.cpp">
+      <Filter>GameObject\Item\Continue</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -688,6 +694,9 @@
     </ClInclude>
     <ClInclude Include="RestartPoint.h">
       <Filter>GameObject\Item\Restartpoint</Filter>
+    </ClInclude>
+    <ClInclude Include="Continue.h">
+      <Filter>GameObject\Item\Continue</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

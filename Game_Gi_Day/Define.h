@@ -78,6 +78,7 @@ enum eType
 	COLUMN2 = 45,
 	COLUMN3 = 46,
 	COLUMN4 = 47,
+	
 	HEARTCOL = 48,
 	FACEALADDIN = 49,
 	NUMBER=50,
@@ -88,7 +89,7 @@ enum eType
 	BRICK_TRANSPARENT = 22,
 	BUTTERFLY = 23,
 	THEBIRD = 24,
-
+	CONTINUE = 25,
 	//map
 	MAP1 = 101,
 	MAP2 = 102,

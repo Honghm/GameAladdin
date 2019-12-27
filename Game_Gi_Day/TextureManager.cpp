@@ -31,6 +31,7 @@ void TextureManager::LoadResource()
 	AddTexture(eType::COLUMN2, new CTexture("Resources/Ground/column2.png"));
 	AddTexture(eType::COLUMN3, new CTexture("Resources/Ground/column3.png"));
 	AddTexture(eType::COLUMN4, new CTexture("Resources/Ground/column4.png"));
+	AddTexture(eType::CONTINUE, new CTexture("Resources/Item/Exit.png"));
 	//HeartCol
 	AddTexture(eType::HEARTCOL, new CTexture("Resources/thanhmau150x90.png", 10, 4, 40));
 	//FaceAladdin

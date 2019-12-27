@@ -46,7 +46,7 @@ private:
 	bool isGameOver;
 	DWORD EndTime;
 	float remainTime;
-	
+	int dem = 0;
 	CSprite *OtherMap;
 	CTexture *texture;
 
