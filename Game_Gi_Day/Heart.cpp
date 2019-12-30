@@ -9,14 +9,15 @@ Heart::Heart(float X, float Y, int W, int H, int st)
 	this->y = Y;
 	this->width = W;
 	this->height = H;
-	sprite = new CSprite(texture, 0);
+	sprite = new CSprite(texture, 200);
 	this->type = eType::HEART;
+	this->Health = 1;
 
 }
 
 void Heart::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	this->sprite->SetTimeAnimation(2000);
+	//this->sprite->SetTimeAnimation(2000);
 	if (this->sprite->GetCurrentFrame() < HEART_ANI_BEGIN || this->sprite->GetCurrentFrame() > HEART_ANI_END)
 	{
 

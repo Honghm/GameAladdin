@@ -30,12 +30,13 @@
 #include "Guard.h"
 #include "Soldier.h"
 #include "Bat.h"
+#include "Ghost.h"
 Player::Player(Camera * camera)
 {
 	this->Health = 8;
-	this->apple = 50;
-	this->jewryrock = 99;
-	this->life = 7;
+	this->apple = 20;
+	this->jewryrock = 0;
+	this->life = 3;
 	texture = TextureManager::GetInstance()->GetTexture(eType::ALADDIN);
 	sprite = new CSprite(texture, 100);
 	this->mAladdinData = new AladdinData();
@@ -240,17 +241,17 @@ void Player::Render(Camera * camera)
 {
 	D3DXVECTOR2 pos = camera->Transform(GetX(), GetY());
 
-	int alpha = 255;
+	//int alpha = 255;
 	for (auto obj : mWeapon)
 	{
 		if (obj->GetFinish() == false)
 			obj->Render(camera);
 	}
 	if(GetDirection() == 1)
-		sprite->Draw(pos.x, pos.y, alpha);
+		sprite->Draw(pos.x, pos.y, 255);
 	else
-		sprite->DrawFlipX(pos.x, pos.y, alpha);
-	this->RenderBoundingBox(camera);
+		sprite->DrawFlipX(pos.x, pos.y, 255);
+	//this->RenderBoundingBox(camera);
 
 	for (auto obj : listEffect)
 	{
@@ -697,7 +698,7 @@ void Player::CollisionWithEnemyArea(const vector<LPGAMEOBJECT>* coObject)
 	for (UINT i = 0; i < coObject->size(); i++)
 	{
 		LPGAMEOBJECT cO = coObject->at(i);
-		if ((cO->GetType() == eType::BAT || cO->GetType() == GUARD || cO->GetType() == SOLDIER || cO->GetType() == GHOST)
+		if ((cO->GetType() == eType::BAT || cO->GetType() == GUARD || cO->GetType() == SOLDIER || cO->GetType() == GHOST||cO->GetType()==BOSS)
 			&& cO->GetHealth() != 0)
 			listEnemy.push_back(coObject->at(i));
 	}
@@ -717,6 +718,7 @@ void Player::CollisionWithEnemyArea(const vector<LPGAMEOBJECT>* coObject)
 			LPGAMEOBJECT enemy = e->obj;
 			SubHealth();
 			Sound::GetInstance()->Play(eSound::sound_AladdinHurt);
+			this->SetState(new AladdinBeingAttackState(this->mAladdinData));
 			if (mCurrentState == AladdinState::Climbing || mCurrentState == AladdinState::ClimbingAttack || mCurrentState == AladdinState::ClimbingThow)
 			
 				this->SetState(new AladdinClimbingState(this->mAladdinData));
@@ -788,6 +790,7 @@ void Player::CollisionWeaponWithObj(const vector<LPGAMEOBJECT> *coObjects) //xé
 						{
 							if (dynamic_cast<Guard*>(obj)->GetIsAttacking() == true)
 							{
+								this->AddScore(250);
 								dynamic_cast<Guard*>(obj)->sprite->SelectFrame(26);
 								weapon->SetFinish(true);
 								if (mCurrentState == AladdinState::Climbing || mCurrentState == AladdinState::ClimbingAttack || mCurrentState == AladdinState::ClimbingThow)
@@ -804,6 +807,7 @@ void Player::CollisionWeaponWithObj(const vector<LPGAMEOBJECT> *coObjects) //xé
 								dynamic_cast<Guard*>(obj)->SetStatus(1);
 								if (weapon->GetType() == APPLE)
 								{
+									this->AddScore(250);
 									weapon->SetFinish(true);
 									Sound::GetInstance()->Play(eSound::sound_GuardPant);
 								}
@@ -817,6 +821,7 @@ void Player::CollisionWeaponWithObj(const vector<LPGAMEOBJECT> *coObjects) //xé
 							dynamic_cast<Soldier*>(obj)->SetStatus(1);
 							if (weapon->GetType() == APPLE)
 							{
+								this->AddScore(250);
 								weapon->SetFinish(true);
 								Sound::GetInstance()->Play(eSound::sound_Iiee);
 							}
@@ -824,15 +829,24 @@ void Player::CollisionWeaponWithObj(const vector<LPGAMEOBJECT> *coObjects) //xé
 						}
 						case eType::BAT:
 						{
+							this->AddScore(200);
 							listEffect.push_back(new Effect(obj->GetX(), obj->GetY(), eType::BAT, 1));
 							dynamic_cast<Bat*>(obj)->SetStatus(1);
 							if (weapon->GetType() == APPLE)
 								weapon->SetFinish(true);
 							break;
 						}
+						case eType::GHOST:
+						{
+							this->AddScore(100);
+							listEffect.push_back(new Effect(obj->GetX(), obj->GetY(), eType::GHOST, 1));
+							dynamic_cast<Ghost*>(obj)->SetStatus(1);
+							if (weapon->GetType() == APPLE)
+								weapon->SetFinish(true);
+							break;
+						}
 						case eType::BOSS:
 						{
-							
 							int a = dynamic_cast<Boss*>(obj)->GetHealth();
 							if (weapon->GetType() == APPLE)
 							{
@@ -845,6 +859,12 @@ void Player::CollisionWeaponWithObj(const vector<LPGAMEOBJECT> *coObjects) //xé
 								weapon->SetFinish(true);
 								if (a <= 10)
 									dynamic_cast<Boss*>(obj)->SetState(2);
+							}
+							if (a <= 0)
+							{
+								this->AddScore(1000);
+								Sound::GetInstance()->Play(eSound::sound_LevelComplete);
+								SceneManager::GetInstance()->SetPlayerState(-1);
 							}
 						}
 						default:

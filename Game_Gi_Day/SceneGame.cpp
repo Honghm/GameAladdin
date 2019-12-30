@@ -52,9 +52,9 @@ void SceneGame::OnKeyDown(int KeyCode)
 	if (KeyCode == DIK_2)
 		this->player->SetPosition(466, 663);
 	if (KeyCode == DIK_3)
-		this->player->SetPosition(725, 213);
+		this->player->SetPosition(705, 213);
 	if (KeyCode == DIK_4)
-		this->player->SetPosition(1654, 213);
+		this->player->SetPosition(1644, 213);
 	if (KeyCode == DIK_5)
 		this->player->SetPosition(2110, 50);
 }
@@ -169,6 +169,12 @@ void SceneGame::Update(DWORD dt)
 			else if (dynamic_cast<Boss*>(listObj[i]))
 			{
 				Boss *boss = dynamic_cast<Boss*>(listObj[i]);
+				if(boss->GetHealth() <= 0)
+				{
+					Sound::GetInstance()->Play(eSound::sound_LevelComplete);
+					AlaState = -1;
+					return;
+				}
 				boss->Update(dt, player->GetX(), player->GetY(), player->GetDirection(), player);
 			}
 			else
@@ -223,7 +229,7 @@ void SceneGame::Render()
 			{
 				LPGAMEOBJECT obj = listUnit[i]->GetObj();
 
-				obj->RenderBoundingBox(camera);
+				//obj->RenderBoundingBox(camera);
 				obj->Render(camera);
 
 			}

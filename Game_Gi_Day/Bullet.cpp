@@ -61,7 +61,7 @@ void Bullet::Render(Camera * camera)
 		return;
 	D3DXVECTOR2 pos = camera->Transform(x, y);
 	sprite->Draw(pos.x, pos.y);
-	RenderBoundingBox(camera);
+	//RenderBoundingBox(camera);
 }
 
 void Bullet::GetBoundingBox(float & left, float & top, float & right, float & bottom)

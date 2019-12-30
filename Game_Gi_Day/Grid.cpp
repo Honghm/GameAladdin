@@ -81,6 +81,9 @@ void Grid::ReloadGrid()
 	{
 		inp >> id >> type >> direction >> x >> y >> w >> h >> borderL >> borderR >> status;
 		Insert(id, type, direction, x, y, w, h, borderL, borderR, status);
+		if (i == 350)
+			int a = i;
+			
 	}
 	inp.close();
 }
